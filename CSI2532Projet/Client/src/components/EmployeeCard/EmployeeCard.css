@@ -1,4 +1,23 @@
-.card{
+.Card{
+    width: 10rem;
+    height: 9em;
     background-color: white;
-    border-radius: 0.2rem;
+    border-radius: 0.2rem;  
+    margin: 2rem; 
+    position: relative;
+}
+.image{
+    width: 3rem;
+    margin-left:-4rem ;
+    margin-top: 1.5rem;
+    position: absolute;
+}
+.Card p{
+    font-family:"Poppins",sans-serif;
+    font-weight: 300;
+    bottom: 0; 
+    left: 0; 
+    position: absolute; 
+    margin-left: 1rem;
+    margin-bottom: 2rem;
 }

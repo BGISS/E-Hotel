@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./RoomIcon.css";
+import personIcon from "../../assets/Person.png";
 
 interface RoomIconParam {
     image: string;
@@ -20,7 +21,7 @@ function RoomIcon({image,hotelName,roomNumber,price,numberPeople}:RoomIconParam)
                     <p className="price">{"$"+price}</p>
                     <div className="people">
                         <p className="numberPeople">{numberPeople}</p>
-                        <img className="personIcon" src=""></img>
+                        <img className="personIcon" src={personIcon}></img>
                     </div>
                 </div>
             </div>

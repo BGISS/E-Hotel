@@ -6,6 +6,11 @@
     border: solid 1.5px #ACACAC;
     border-radius: 0.8rem;
     box-shadow: 0.05rem 0.05rem #E2E0E0;
+    cursor: pointer;
+}
+
+.icon:hover{
+    border: solid 2px #FFDE33;
 }
 
 .text{
@@ -38,3 +43,12 @@
     margin-top: -1rem;
 }
 
+.people{
+    display: flex;
+    flex-direction: row;
+}
+.personIcon{
+    height: 1.5rem;
+    margin-top: -1rem;
+    margin-left: 0.5rem;
+}

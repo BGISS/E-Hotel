@@ -1,0 +1,44 @@
+.search-bar {
+    display: flex;
+    width:  50rem;
+    height: 3rem;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-self: start;
+    border: 0.1rem solid;
+    border-radius: 3rem;
+    box-shadow: 0.5rem 0.5rem gray;
+  }
+  .check-in,.check-out,.min-price,.max-price,.search-button,.calendar-icon{
+    margin:  0.3rem;
+  }
+  .check-in,.check-out,.min-price,.max-price{
+    border-radius: 0.5rem;
+    border: none;
+  }
+
+  .search-button{
+    border-radius: 50%;
+    border: none;
+    background-color: rgb(43,41, 144);
+    padding: 0.5em;
+    cursor: pointer;
+  }
+  .search-icon{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    color: white;
+  }
+  .calendar-icon{
+    vertical-align: middle;
+    margin-left: 0.3rem;
+  }
+
+  
+  .vertical-bar {
+    margin: 0 5px;
+    border-left: 1px solid #000;
+    height: 3rem
+  }

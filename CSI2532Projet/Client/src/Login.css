@@ -1,0 +1,26 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+ 
+.img-container {
+    max-width: 75vw;    
+    max-height: 100vh;
+    overflow: hidden;
+    opacity: 0.5;
+}
+
+.page{
+    display: flex;
+}
+
+.login-container{
+    width: 25vw;
+    height: 100vh;
+}
+
+.login-text {
+    margin-top: 12rem;
+    font-size: 2.5rem;    
+}

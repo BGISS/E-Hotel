@@ -11,6 +11,11 @@
     opacity: 0.5;
 }
 
+.img {
+    height: 100%;
+    width: 75vw;
+}
+
 .page{
     display: flex;
 }
@@ -21,6 +26,40 @@
 }
 
 .login-text {
-    margin-top: 12rem;
+    margin-top: 15rem;
     font-size: 2.5rem;    
+    font-family: Poppins;
+    font-weight: 500;
 }
+
+.radiogroup{
+    margin-top: 4rem;
+}
+
+.enter-NAS {
+    margin-top: 4rem;
+    font-family: "Poppins";
+    font-size: 1rem;
+}
+
+.button-field-container {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    padding-inline: 8rem;
+    align-items: end;
+
+}
+
+.go-button {
+    background-color: black;
+    border-radius: 10px;
+    width: 4rem;
+    margin-top: 1.5rem;
+}
+
+.arrow {
+    transform: scaleX(0.6);
+    transform: scaleY(0.9);
+}
+

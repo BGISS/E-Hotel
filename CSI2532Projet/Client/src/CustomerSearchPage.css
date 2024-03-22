@@ -1,0 +1,30 @@
+.search{
+    display: flex;
+    flex-direction: row;
+    justify-content: center; 
+    width: inherit;
+    margin-top: 0.5rem;
+}
+
+.headerEhotel{
+    display: flex;
+    margin-top: -1.5rem;
+    flex-direction: row;
+    align-items: baseline;
+    height: 5rem;
+}
+
+.eHotel{
+    margin-left: 1rem;
+    font-size: 2.2rem;
+}
+
+.bookingMadeEasy{
+    font-size: 1.5rem;
+    margin-left: 1rem;
+}
+
+.filters{
+    display: flex;
+    flex-direction: row;
+}

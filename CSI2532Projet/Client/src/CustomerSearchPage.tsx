@@ -2,12 +2,29 @@ import "./CustomerSearchPage.css";
 import SearchBar from "./components/Searchbar/Searchbar";
 import RoomIcon from "./components/RoomIcon/RoomIcon";
 import filterIcon from "./assets/filter.png";
-
+import FilterPopUp from "./components/FilterPopUp/FilterPopUp";
+import React, { useState } from 'react';
 
 function CustomerSearchPage(){
+
+  const [isVisible, setIsVisible] = useState(false);
+  
+
+  const handleClickFilters = () => {
+    setIsVisible(true);
+  };
+
+  const handleClickX = () => {
+    setIsVisible(false);
+  };
+
     return (
         <>
           <body>
+            {isVisible && (<div className="popup">
+              <FilterPopUp></FilterPopUp>
+            </div>)}
+            {isVisible && (<div className="darkenBackground" onClick={handleClickX}></div>)}
             <div className="headerEhotel">
                 <p className="eHotel">E-Hotel</p>
                 <p className="bookingMadeEasy">Booking made easy</p>
@@ -16,7 +33,7 @@ function CustomerSearchPage(){
               <SearchBar></SearchBar>
             </div>
             <div className="filterDiv">
-              <button className="filters">
+              <button className="filters" onClick={handleClickFilters}>
                 <img className="filterIcon" src={filterIcon}></img>
                 <p className="filterText">Filters</p>
               </button>
@@ -34,7 +51,8 @@ function CustomerSearchPage(){
                   numberPeople={Number(2)}
                   ></RoomIcon>
             </div>
-
+           
+                
            
           </body>
         </>

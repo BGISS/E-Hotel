@@ -1,3 +1,7 @@
+body{
+    display: grid;
+    padding: 0;
+}
 .search{
     display: flex;
     flex-direction: row;
@@ -43,6 +47,7 @@
     justify-content: space-between;
     padding: 15px;
     margin-left:41rem;
+    cursor: pointer;
 }
 
 .filterText{
@@ -72,3 +77,23 @@
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
+
+.popup{
+    position: absolute;
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    margin-top: 12rem;
+    z-index: 3;
+}
+
+.darkenBackground{
+    position: absolute;
+    margin-top: -1rem;
+    margin-left: -1rem;
+    height: 100vh;
+    width: 100vw;
+    opacity: 30%;
+    background-color: black;
+}
+

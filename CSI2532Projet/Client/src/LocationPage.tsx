@@ -1,7 +1,16 @@
 import Image from "./assets/image location.jpeg";
 import "./LocationPage.css";
 import LocationCard from "./components/LocationCard/LocationCard";
+import CreateLocation from "./components/CreateLocation/CreateLocation";
+import { useState } from "react";
 function LocationPage() {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleTransformClick = () => {
+    setIsOpen(!isOpen);
+  };
+  const handleClosePopup = () => {
+    setIsOpen(false);
+  };
   return (
     <>
       <div className="image-div">
@@ -33,7 +42,10 @@ function LocationPage() {
           room_num={3}
         ></LocationCard>
       </div>
-      <button className="location-button">Create Leasing</button>
+      <button className="location-button" onClick={handleTransformClick}>
+        Create Leasing
+      </button>
+      {isOpen && <CreateLocation onClose={handleClosePopup}></CreateLocation>}
     </>
   );
 }

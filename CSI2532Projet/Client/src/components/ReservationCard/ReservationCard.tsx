@@ -4,12 +4,14 @@ interface ReservationCardParam {
   start_date: string;
   end_date: string;
   room_num: number;
+  onTransformClick: () => void;
 }
 function ReservationCard({
   nom,
   start_date,
   end_date,
   room_num,
+  onTransformClick,
 }: ReservationCardParam) {
   return (
     <>
@@ -21,7 +23,10 @@ function ReservationCard({
           <p>Room: {room_num}</p>
         </div>
         <div className="button-div">
-          <button className="transformButton"> Transform</button>
+          <button className="transformButton" onClick={onTransformClick}>
+            {" "}
+            Transform
+          </button>
         </div>
       </div>
     </>

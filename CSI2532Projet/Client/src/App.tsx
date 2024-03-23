@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LocationPage />}></Route>
+        <Route path="/" element={<ReservationsPage />}></Route>
       </Routes>
     </Router>
   );

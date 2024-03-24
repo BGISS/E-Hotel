@@ -1,26 +1,34 @@
 import ReservationCard from "./components/ReservationCard/ReservationCard";
 import image from "./assets/Reservation.jpeg";
 import "./ReservationPage.css";
-import { Key, useEffect, useState } from "react";
+import { Key, SetStateAction, useEffect, useState } from "react";
 import axios from "axios";
 import PopUp from "./components/PopUp/PopUp";
 import { render } from "react-dom";
 
 function ReservationsPage() {
   interface ReservationData {
-    nom_hôtel: string;
+    nom_client: string;
     date_reserver: string;
     end_date: string;
     num_chambre: number;
+    nom_hôtel: string;
+    employee_id: number;
+    nas_client: number;
+    reservation_id: number;
   }
-
+  const [selectedReservation, setSelectedReservation] =
+    useState<ReservationData | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [backendData, setBackendData] = useState<ReservationData[] | null>(
+    null
+  );
   useEffect(() => {
-    // Fetch reservation data when component mounts
     showReservations();
   }, []);
 
-  const handleTransformClick = () => {
+  const handleTransformClick = (reservation: ReservationData) => {
+    setSelectedReservation(reservation);
     setIsOpen(!isOpen);
   };
 
@@ -30,9 +38,37 @@ function ReservationsPage() {
   const api = axios.create({
     baseURL: `http://localhost:3000`,
   });
-  const [backendData, setBackendData] = useState<ReservationData[] | null>(
-    null
-  );
+  const handleOnSubmit = async (
+    payment: number,
+    date_reserver: string,
+    end_date: string,
+    num_chambre: number,
+    reservation_id: number,
+    nas_client: number,
+    employee_id: number,
+    nom_hôtel: string
+  ) => {
+    if (selectedReservation) {
+      console.log(payment, nas_client, nom_hôtel);
+      try {
+        const response = await api.post("/transform", {
+          payment,
+          date_reserver,
+          end_date,
+          num_chambre,
+          reservation_id,
+          nas_client,
+          employee_id,
+          nom_hôtel,
+        });
+      } catch (error) {
+        console.error("Error inserting payment", error);
+      }
+    } else {
+      console.error("No selected reservation to submit.");
+    }
+  };
+
   const showReservations = async () => {
     try {
       const response = await api.get("/reservations");
@@ -41,7 +77,6 @@ function ReservationsPage() {
       console.error("Error fetching Reservation");
     }
   };
-  showReservations();
 
   return (
     <>
@@ -53,24 +88,34 @@ function ReservationsPage() {
           backendData.map(
             (
               reservation: {
-                nom_hôtel: string;
+                nom_client: string;
                 date_reserver: string;
                 end_date: string;
                 num_chambre: number;
+                nom_hôtel: string;
+                employee_id: number;
+                nas_client: number;
+                reservation_id: number;
               },
               index: Key | null | undefined
             ) => (
               <ReservationCard
                 key={index}
-                nom={reservation.nom_hôtel}
-                start_date={reservation.date_reserver}
-                end_date={reservation.end_date}
+                nom={reservation.nom_client}
+                start_date={reservation.date_reserver.slice(0, 10)}
+                end_date={reservation.end_date.slice(0, 10)}
                 room_num={reservation.num_chambre}
-                onTransformClick={handleTransformClick}
+                onTransformClick={() => handleTransformClick(reservation)}
               />
             )
           )}
-        {isOpen && <PopUp onClose={handleClosePopup}></PopUp>}
+        {selectedReservation && isOpen && (
+          <PopUp
+            onClose={handleClosePopup}
+            onSubmit={handleOnSubmit}
+            reservation={selectedReservation}
+          ></PopUp>
+        )}
       </div>
     </>
   );

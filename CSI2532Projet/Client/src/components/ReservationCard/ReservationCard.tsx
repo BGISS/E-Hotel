@@ -4,8 +4,9 @@ interface ReservationCardParam {
   start_date: string;
   end_date: string;
   room_num: number;
-  onTransformClick: () => void;
+  onTransformClick: (reservation: any) => void;
 }
+
 function ReservationCard({
   nom,
   start_date,

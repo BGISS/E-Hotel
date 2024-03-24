@@ -4,6 +4,7 @@ import CustomerSearchPage from "./CustomerSearchPage";
 import EmployeePage from "./EmployeePage";
 import ReservationsPage from "./ReservationsPage";
 import LocationPage from "./LocationPage";
+import Login from "./Login";
 
 function App() {
   return (

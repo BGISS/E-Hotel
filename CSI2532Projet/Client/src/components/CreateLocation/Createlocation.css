@@ -23,9 +23,11 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   }
 
-.container h2{
+.content.h2{
     position: relative;
     right: 0.5em;
+    margin-bottom: 1rem
+
 }
 .form-group {
   margin-bottom: 1.5rem;
@@ -39,7 +41,8 @@ label {
 
 select,
 input[type="text"],
-input[type="date"] {
+input[type="date"],
+input[type="number"] {
   width: 60%;
   padding: 1rem;
   font-size: 1.6rem;

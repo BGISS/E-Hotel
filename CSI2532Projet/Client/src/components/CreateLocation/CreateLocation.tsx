@@ -13,7 +13,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
   return (
     <div className="container" onClick={onClose}>
       <div className="content" onClick={(e) => e.stopPropagation()}>
-        <h2>Reservation Form</h2>
+        <h2>Leasing Form</h2>
         <form>
           <div className="form-group">
             <label htmlFor="existingClient">Are you an existing client?</label>
@@ -22,8 +22,8 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
               name="existingClient"
               onChange={handleDropdownChange}
             >
-              <option value="yes">Yes</option>
               <option value="no">No</option>
+              <option value="yes">Yes</option>
             </select>
           </div>
           {!isExistingClient && (
@@ -44,11 +44,11 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
           )}
           <div className="form-group">
             <label htmlFor="locationId">Location ID:</label>
-            <input type="text" id="locationId" name="locationId" />
+            <input type="number" id="locationId" name="locationId" />
           </div>
           <div className="form-group">
             <label htmlFor="roomNum">Room Number:</label>
-            <input type="text" id="roomNum" name="roomNum" />
+            <input type="number" id="roomNum" name="roomNum" />
           </div>
           <div className="form-group">
             <label htmlFor="hotelName">Hotel Name:</label>
@@ -56,11 +56,11 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
           </div>
           <div className="form-group">
             <label htmlFor="clientNas">Client NAS:</label>
-            <input type="text" id="clientNas" name="clientNas" />
+            <input type="number" id="clientNas" name="clientNas" />
           </div>
           <div className="form-group">
             <label htmlFor="employeeId">Employee ID:</label>
-            <input type="text" id="employeeId" name="employeeId" />
+            <input type="number" id="employeeId" name="employeeId" />
           </div>
           <div className="form-group">
             <label htmlFor="startDate">Start Date:</label>
@@ -69,6 +69,10 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
           <div className="form-group">
             <label htmlFor="endDate">End Date:</label>
             <input type="date" id="endDate" name="endDate" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="payment">Payment:</label>
+            <input type="number" id="payment" name="payment" />
           </div>
           <button type="submit">Submit</button>
         </form>

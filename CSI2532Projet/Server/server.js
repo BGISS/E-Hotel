@@ -56,6 +56,60 @@ app.get('/reservations', async (req, res) => {
     const data = await getReservations()
     res.send(data)
 });
+
+app.get('/searchRooms',async (req, res) => {
+    const{numberPeople,roomSize,hotelChain,category,checkInDate,checkOutDate,minPrice,maxPrice}=req.query;
+var searchQuery = ""
+if(hotelChain != "" || category != undefined){
+    console.log("hote: ",hotelChain,"cate: ",category)
+    searchQuery = 
+    `SELECT chambre.nom_hôtel,chambre.num_chambre,chambre.prix,chambre.capacité FROM chambre
+    LEFT JOIN reservation ON chambre.num_chambre = reservation.num_chambre
+        AND reservation.date_reserver <= '${checkOutDate}' 
+        AND reservation.end_date >= '${checkInDate}'
+        AND reservation.nom_hôtel = chambre.nom_hôtel
+    LEFT JOIN location ON chambre.num_chambre = location.num_chambre
+        AND location.date_reserver <= '${checkOutDate}' 
+        AND location.end_date >= '${checkInDate}'
+        AND location.nom_hôtel = chambre.nom_hôtel
+    LEFT JOIN hôtel ON chambre.nom_hôtel = hôtel.nom_hôtel
+    WHERE reservation.num_chambre IS NULL AND location.num_chambre IS NULL AND chambre.prix >= ${minPrice} AND chambre.prix <= ${maxPrice}`;
+    if (hotelChain != "") {
+        searchQuery= searchQuery+` AND hôtel.nom_chaîne = '${hotelChain}'`
+    }
+    if (category != undefined) {
+        searchQuery = searchQuery + ` AND hôtel.nombres_etoiles = ${category}`
+    }
+}
+else {
+
+    searchQuery = 
+    `SELECT chambre.nom_hôtel,chambre.num_chambre,chambre.prix,chambre.capacité FROM chambre 
+    LEFT JOIN reservation ON chambre.num_chambre = reservation.num_chambre 
+        AND reservation.date_reserver <= '${checkInDate}' 
+        AND reservation.end_date >= '${checkOutDate}' 
+        AND reservation.nom_hôtel = chambre.nom_hôtel 
+    LEFT JOIN location ON chambre.num_chambre = location.num_chambre 
+        AND location.date_reserver <= '${checkInDate}' 
+        AND location.end_date >= '${checkOutDate}' 
+        AND location.nom_hôtel = chambre.nom_hôtel 
+    WHERE reservation.num_chambre IS NULL AND location.num_chambre IS NULL AND chambre.prix >= ${minPrice} AND chambre.prix <= ${maxPrice}`;
+}
+
+if (numberPeople!=-1){
+    searchQuery= searchQuery+` AND chambre.capacité = ${numberPeople}`;
+}
+if (roomSize!=undefined){
+    searchQuery= searchQuery+` AND chambre.superficie = ${roomSize}`;
+}
+
+console.log(searchQuery)
+const response = await client.query(searchQuery)
+res.send(response.rows)
+console.log(response.rows)
+})
+
+
 async function addReservation(){}
 async function getQuery(){}
 async function addLocation({start_date,end_date,employee_id,nas_client,num_chambre,nom_hotel}){

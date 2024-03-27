@@ -12,8 +12,8 @@ function EmployeePage() {
       </div>
       <div className="cards">
         <EmployeeCard icon={hotelIcon} text={"Reservation"}></EmployeeCard>
-        <EmployeeCard icon={locationIcon} text={"Locations"}></EmployeeCard>
-        <EmployeeCard icon={cashIcon} text={"Inserer payment"}></EmployeeCard>
+        <EmployeeCard icon={locationIcon} text={"Leasings"}></EmployeeCard>
+        <EmployeeCard icon={cashIcon} text={"Log Out"}></EmployeeCard>
       </div>
     </>
   );

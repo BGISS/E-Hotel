@@ -18,7 +18,7 @@ function RoomIcon({image,hotelName,roomNumber,price,numberPeople}:RoomIconParam)
                 <div className="text">
                     <p className="hotelName">{hotelName}</p>
                     <p className="roomNumber">{"Room "+roomNumber}</p>
-                    <p className="price">{"$"+price}</p>
+                    <p className="price">{"$"+price+" per night"}</p>
                     <div className="people">
                         <p className="numberPeople">{numberPeople}</p>
                         <img className="personIcon" src={personIcon}></img>

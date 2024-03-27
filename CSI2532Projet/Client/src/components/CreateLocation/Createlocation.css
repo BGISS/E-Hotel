@@ -1,0 +1,80 @@
+.container {
+    font-family: "Poppins";
+    border: black 5px;
+    font-size: 1.6rem;;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    width: 70%;
+    height: 80%; 
+    overflow-y: auto; 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+
+.content.h2{
+    position: relative;
+    right: 0.5em;
+    margin-bottom: 1rem
+
+}
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+select,
+input[type="text"],
+input[type="date"],
+input[type="number"]{
+  width: 60%;
+  padding: 1rem;
+  font-size: 1.6rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+select {
+  appearance: none;
+  width: 64%;
+}
+
+button[type="submit"] {
+  display: block;
+  background-color: #FC9163;
+  font-family: "Poppins",sans-serif;
+  font-weight: 600;
+  position: relative;
+  left: 13rem;
+  width: 60%;
+  padding: 1.5rem;
+  font-size: 1.6rem;
+  border: 1rem solid #454441;
+  border-radius: 2rem;
+  box-shadow: #3e3d3d 4px 4px 0 0;
+  transform: translate(2px, 2px);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 2rem;
+}
+
+button[type="submit"]:hover {
+  background-color:#F4C587;
+}

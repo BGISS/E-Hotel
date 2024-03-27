@@ -1,0 +1,182 @@
+.filterContainer{
+    border: solid 1.5px #ACACAC;
+    border-radius: 0.8rem;
+    width: 50rem;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
+    font-family: 'poppins';
+    padding-top: 0.5rem;
+    align-items: flex-start;
+    background-color: white;
+}
+
+.filterNavBar{
+    display: flex;
+    flex-direction: row;
+    height:2rem;
+    justify-content: center;
+}
+
+.filter{
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-left: 22rem;
+}
+
+
+.line{
+    border: solid 0.5px #ACACAC;
+    width: 49rem;
+}
+
+.buttonsContainer{
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-weight: 300;
+    font-size: 0.8rem;
+}
+
+.Any{
+    border: solid 0.5px #ACACAC;
+    width: 3rem;
+    height: 2rem;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.one{
+    border: solid 0.5px #ACACAC;
+    width: 3rem;
+    height: 2rem;
+    border-radius: 2rem;
+    margin-left: 1rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+}
+.two{
+    border: solid 0.5px #ACACAC;
+    width: 3rem;
+    height: 2rem;
+    border-radius: 2rem;
+    margin-left: 1rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+}
+.three{
+    border: solid 0.5px #ACACAC;
+    width: 3rem;
+    height: 2rem;
+    border-radius: 2rem;
+    margin-left: 1rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.four{
+    border: solid 0.5px #ACACAC;
+    width: 3rem;
+    height: 2rem;
+    border-radius: 2rem;
+    margin-left: 1rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+}
+.five{
+    border: solid 0.5px #ACACAC;
+    width: 3rem;
+    height: 2rem;
+    border-radius: 2rem;
+    margin-left: 1rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+}
+
+.Capacity{
+    margin: 0;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+}
+
+.Max{
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 200;
+}
+
+.Chain{
+    margin: 0;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.dropdown{
+    height: 3rem;
+    border-radius: 0.5rem;
+    border: solid 1.5px #ACACAC;
+    color: black;
+    font-family: 'Poppins';
+    width: 20rem;
+    font-weight: 200;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.RoomSize{
+    margin: 0;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.size{
+    height: 3rem;
+    border-radius: 0.5rem;
+    border: solid 1.5px #ACACAC;
+    color: black;
+    font-family: 'Poppins';
+    width: 20rem;
+    font-weight: 200;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.Category{
+    margin: 0;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.categoryInput{
+    height: 3rem;
+    border-radius: 0.5rem;
+    border: solid 1.5px #ACACAC;
+    color: black;
+    font-family: 'Poppins';
+    width: 20rem;
+    font-weight: 200;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}

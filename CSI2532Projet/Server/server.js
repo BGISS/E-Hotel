@@ -8,9 +8,10 @@ const client = new pg.Client({
     host: 'localhost',
     user: 'postgres',
     port: 5432,
-    password: 'Adarsh_22',
-    database: 'Project'
+    password: 'Vivekdota2',
+    database: 'postgres'
 })
+
 async function connectPostgres() {
     try {
         await client.connect();
@@ -19,6 +20,22 @@ async function connectPostgres() {
         console.error('Error connecting to PostgreSQL database:', error);
     }
 }
+
+app.get("/getUser",async (req,res) => {
+    const {NAS,radioVal} = req.query
+    var columnName = "nas_client"
+    if(radioVal == "Employee"){
+        columnName = "nas_employee"
+    }
+    try {
+        const query = `SELECT * from ${radioVal} WHERE ${columnName} = ${NAS}`
+        const data = await client.query(query)
+        console.log(data.rowCount)
+        res.sendStatus(data.rowCount)
+    } catch (error) {
+        
+    }
+});
 
 connectPostgres();
 

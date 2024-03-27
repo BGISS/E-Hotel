@@ -5,12 +5,13 @@ import EmployeePage from "./EmployeePage";
 import ReservationsPage from "./ReservationsPage";
 import LocationPage from "./LocationPage";
 import Login from "./Login";
+import DeletePage from "./DeletePage";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<CustomerSearchPage />}></Route>
+        <Route path="/" element={<DeletePage />}></Route>
       </Routes>
     </Router>
   );

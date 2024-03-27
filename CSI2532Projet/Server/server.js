@@ -24,39 +24,78 @@ const baseLocationQuery= `INSERT INTO Location (date_reserver, end_date, num_cha
 async function transform({payment,date_reserver,end_date,num_chambre,reservation_id,nas_client,employee_id,nom_hôtel}){
     const res = await client.query(baseLocationQuery,
     [date_reserver, end_date, num_chambre, reservation_id, nas_client, employee_id, nom_hôtel, payment]);
-    console.log(res.rows[0])
     return res.rows[0];
 }
-async function CreateClientLocation({payment,date_reserver,end_date,num_chambre,reservation_id,nas_client,employee_id,nom_hôtel,}){
 
-}
 async function getReservations(){
     const res = await client.query('SELECT * FROM reservation NATURAL JOIN client WHERE reservation.nas_client=client.nas;')
     return res.rows
 }
-async function getLocations(){
+async function getLocations(){ 
     const res = await client.query('SELECT* FROM location  NATURAL JOIN client WHERE location.nas_client=client.nas')
     return res.rows
 }
+app.get('/createLocation',async(req,res)=>{
+   const{payment,date_reserver,end_date,num_chambre,nas_client,employee_id,nom_hôtel}= req.query
+   console.log(baseLocationQuery)
+    const data = await client.query(baseLocationQuery,
+        [date_reserver,end_date,num_chambre,null,nas_client,employee_id,nom_hôtel,payment]);
+       
+});
+app.get('createClient',async(req,res)=>{
+    const{firstName,lastName,nas_client,date}= req.query
+    const query= 'INSERT INTO client(nom_client,prénom_client,nas,dâte_enregistrement) VALUES($1,$2,$3,$4)';
+    const data = await client.query(query, [firstName,lastName,nas_client,date]);
+})
 app.get('/locations',async(req,res)=>{
     const data= await getLocations()
     res.send(data)
 
-})
+});
 app.post('/transform',async(req,res)=>{
     const{payment,date_reserver,end_date,num_chambre,reservation_id,nas_client,employee_id,nom_hôtel}= req.body;
-    console.log("Payment:", payment);
-    console.log("Date Reserver:", date_reserver);
-    console.log("End Date:", end_date);
-    console.log("Room Number:", num_chambre);
     const data= await transform({payment,date_reserver,end_date,num_chambre,reservation_id,nas_client,employee_id,nom_hôtel})
     res.send(data)
-})
+});
 app.get('/reservations', async (req, res) => {
     const data = await getReservations()
     res.send(data)
 });
+baseGetQuery= 'SELECT * FROM '
+app.get('/getClients',async(req,res)=>{
+    const data= await client.query(baseGetQuery+"Client")
+    res.send(data.rows)
+});
+app.get('/getHotels',async(req,res)=>{
+    const data= await client.query(baseGetQuery+ "Hôtel")
+    res.send(data.rows)
+}); 
+app.get('/getEmployee',async(req,res)=>{
+    const data= await client.query(baseGetQuery+ "Employé")
+    res.send(data.rows)
+});
+app.get('/delete',async(req,res)=>{
+    const{table_name,condition}= req.query
+    deleteQuery=`DELETE FROM ${table_name} WHERE ${condition}`
+    const data= await client.query(deleteQuery)
+});
+app.get('/getRoomNum',async(req,res)=>{
+    const{checkInDate,checkOutDate,minPrice,maxPrice,hotelName}= req.query;
+    searchQuery=`SELECT chambre.nom_hôtel,chambre.num_chambre,chambre.prix,chambre.capacité FROM chambre
+    LEFT JOIN reservation ON chambre.num_chambre = reservation.num_chambre
+        AND reservation.date_reserver <= '${checkOutDate}' 
+        AND reservation.end_date >= '${checkInDate}'
+        AND reservation.nom_hôtel = chambre.nom_hôtel
+    LEFT JOIN location ON chambre.num_chambre = location.num_chambre
+        AND location.date_reserver <= '${checkOutDate}' 
+        AND location.end_date >= '${checkInDate}'
+        AND location.nom_hôtel = chambre.nom_hôtel
+    LEFT JOIN hôtel ON chambre.nom_hôtel = hôtel.nom_hôtel
+    WHERE reservation.num_chambre IS NULL AND location.num_chambre IS NULL AND chambre.prix >= ${minPrice} AND chambre.prix <= ${maxPrice} AND chambre.nom_hôtel = '${hotelName}'`;
+    const response = await client.query(searchQuery)
 
+    res.send(response.rows)
+});
 app.get('/searchRooms',async (req, res) => {
     const{numberPeople,roomSize,hotelChain,category,checkInDate,checkOutDate,minPrice,maxPrice}=req.query;
 var searchQuery = ""
@@ -69,7 +108,7 @@ if(hotelChain != "" || category != undefined){
         AND reservation.end_date >= '${checkInDate}'
         AND reservation.nom_hôtel = chambre.nom_hôtel
     LEFT JOIN location ON chambre.num_chambre = location.num_chambre
-        AND location.date_reserver <= '${checkOutDate}' 
+        AND location.date_reserver <= '${checkOutDate}'  
         AND location.end_date >= '${checkInDate}'
         AND location.nom_hôtel = chambre.nom_hôtel
     LEFT JOIN hôtel ON chambre.nom_hôtel = hôtel.nom_hôtel
@@ -107,7 +146,7 @@ console.log(searchQuery)
 const response = await client.query(searchQuery)
 res.send(response.rows)
 console.log(response.rows)
-})
+});
 
 
 async function addReservation(){}

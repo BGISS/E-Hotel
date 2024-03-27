@@ -1,4 +1,4 @@
-import Image from "./assets/image location.jpeg";
+import Image from "./assets/Sunset.jpeg";
 import "./LocationPage.css";
 import LocationCard from "./components/LocationCard/LocationCard";
 import axios from "axios";

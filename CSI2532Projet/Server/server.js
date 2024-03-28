@@ -29,11 +29,11 @@ app.get("/getUser",async (req,res) => {
     }
     try {
         const query = `SELECT * from ${radioVal} WHERE ${columnName} = ${NAS}`
+        console.log(query)
         const data = await client.query(query)
-        console.log(data.rowCount)
-        res.sendStatus(data.rowCount)
+        res.send(data.rows)
     } catch (error) {
-        
+        console.log('err')
     }
 });
 const baseLocationQuery= `INSERT INTO Location (date_reserver, end_date, num_chambre, reservation_id, nas_client, employee_id, nom_hôtel, location_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;

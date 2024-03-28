@@ -13,7 +13,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Insert />}></Route>
+        <Route path="/" element={<Login />}></Route>
+        <Route path="client" element={<CustomerSearchPage/>}></Route>
+        <Route path="employee" element = {<EmployeePage/>}/>
       </Routes>
     </Router>
   );

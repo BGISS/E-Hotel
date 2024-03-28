@@ -1,15 +1,15 @@
 const pg = require('pg');
 const express= require('express')
 const app= express()
-const cors = require('cors');
+const cors = require('cors'); 
 
 app.use(cors());
 const client = new pg.Client({
     host: 'localhost',
     user: 'postgres',
     port: 5432,
-    password: 'Vivekdota2',
-    database: 'postgres'
+    password: 'Adarsh_22',
+    database: 'Project'
 })
 app.use(express.json());
 async function connectPostgres() {
@@ -90,11 +90,17 @@ app.get('/getEmployee',async(req,res)=>{
     const data= await client.query(baseGetQuery+ "Employé")
     res.send(data.rows)
 });
+app.get('/getRoom',async(req,res)=>{
+    const data= await client.query(baseGetQuery+ "Chambre")
+    res.send(data.rows)
+})
 app.get('/delete',async(req,res)=>{
-    const{table_name,condition}= req.query
-    deleteQuery=`DELETE FROM ${table_name} WHERE ${condition}`
+    const{tableName,condition}= req.query
+    console.log("table",tableName)    
+    deleteQuery=`DELETE FROM ${tableName} WHERE ${condition}`
+    console.log(`DELETE FROM ${tableName} WHERE ${condition}`);
     const data= await client.query(deleteQuery)
-});
+});  
 app.get('/getRoomNum',async(req,res)=>{
     const{checkInDate,checkOutDate,minPrice,maxPrice,hotelName}= req.query;
     searchQuery=`SELECT chambre.nom_hôtel,chambre.num_chambre,chambre.prix,chambre.capacité FROM chambre
@@ -111,7 +117,7 @@ app.get('/getRoomNum',async(req,res)=>{
     const response = await client.query(searchQuery)
 
     res.send(response.rows)
-});
+}); 
 app.get('/searchRooms',async (req, res) => {
     const{numberPeople,roomSize,hotelChain,category,checkInDate,checkOutDate,minPrice,maxPrice}=req.query;
 var searchQuery = ""
@@ -131,7 +137,7 @@ if(hotelChain != "" || category != undefined){
     WHERE reservation.num_chambre IS NULL AND location.num_chambre IS NULL AND chambre.prix >= ${minPrice} AND chambre.prix <= ${maxPrice}`;
     if (hotelChain != "") {
         searchQuery= searchQuery+` AND hôtel.nom_chaîne = '${hotelChain}'`
-    }
+    }  
     if (category != undefined) {
         searchQuery = searchQuery + ` AND hôtel.nombres_etoiles = ${category}`
     }

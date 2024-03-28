@@ -58,11 +58,65 @@ app.get('/createLocation',async(req,res)=>{
         [date_reserver,end_date,num_chambre,null,nas_client,employee_id,nom_hôtel,payment]);
        
 });
-app.get('createClient',async(req,res)=>{
+
+app.get('/createClient',async(req,res)=>{
     const{firstName,lastName,nas_client,date}= req.query
     const query= 'INSERT INTO client(nom_client,prénom_client,nas,dâte_enregistrement) VALUES($1,$2,$3,$4)';
     const data = await client.query(query, [firstName,lastName,nas_client,date]);
 })
+
+app.get('/insertEmployee',async(req,res)=>{
+    const{firstName,lastName,id,employeeNAS,hotel}= req.query
+    const query= 'INSERT INTO employée(nom,prénom,nas,employee_id,nom_hôtel) VALUES($1,$2,$3,$4,$5)';
+    const data = await client.query(query, [firstName,lastName,employeeNAS,id,hotel]);
+})
+
+app.get('/insertHotel',async(req,res)=>{
+    const{hotel,hotelChain,email,numStars,numTel,city,postal,streetNum,country,numRooms,numClients}= req.query
+    
+    const hotelquery= 'INSERT INTO hôtel(nombres_chambres,nom_hôtel,nom_chaîne,nombres_clients,nombres_etoiles) VALUES($1,$2,$3,$4,$5)';
+    const hoteldata = await client.query(hotelquery, [numRooms,hotel,hotelChain,numClients,numStars]);
+    
+    const telquery= 'INSERT INTO numero_telephone(num_telephone,nom_chaîne,num_chambre,nom_hôtel) VALUES($1,NULL,NULL,$2)';
+    const teldata = await client.query(telquery, [numTel,hotel]);
+
+    const addressquery= 'INSERT INTO addresse(pays,ville,num_rue,code_postal,nom_chaîne,nom_hôtel) VALUES($1,$2,$3,$4,NULL,$5)';
+    const addressedata = await client.query(addressquery, [country,city,streetNum,postal,hotel]);
+
+    //insert email
+
+})
+
+app.get('/insertHotelChain',async(req,res)=>{
+    const{hotelChain,
+        numHotels,
+        email,
+        country,
+        city,
+        postal,
+        streetNum,
+        numTel}= req.query
+    const chainequery= 'INSERT INTO chaînehôtelière(nombres_hôtels,nom_chaîne) VALUES($1,$2)';
+    const chainedata = await client.query(chainequery, [numHotels,hotelChain]);
+
+    const addressquery= 'INSERT INTO addresse(pays,ville,num_rue,code_postal,nom_chaîne,nom_hôtel) VALUES($1,$2,$3,$4,$5,NULL)';
+    const addressedata = await client.query(addressquery, [country,city,streetNum,postal,hotelChain]);
+
+    const telquery= 'INSERT INTO numero_telephone(num_telephone,nom_chaîne,num_chambre,nom_hôtel) VALUES($1,$2,NULL,NULL)';
+    const teldata = await client.query(telquery, [numTel,hotelChain]);
+})
+
+app.get('/insertRoom',async(req,res)=>{
+    const{numRoom,
+        price,
+        view,
+        superficie,
+        capacity,
+        hotel,dommages,}= req.query
+    const query= 'INSERT INTO chambre(prix,capacité,vue,étendue,dommages,num_chambre,nom_hôtel) VALUES($1,$2,$3,$4,$5,$6,$7)';
+    const data = await client.query(query, [price,capacity,view,superficie,dommages,numRoom,hotel]);
+})
+
 app.get('/locations',async(req,res)=>{
     const data= await getLocations()
     res.send(data)

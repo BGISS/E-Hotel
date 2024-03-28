@@ -9,6 +9,8 @@ function InsertRoom(){
     const [superficie, setSuperficie] = useState(0);
     const [capacity, setCapacity] = useState(0);
     const [hotel, setHotel] = useState("");
+    const [dommages, setDommages] = useState<boolean>(false);
+
 
     const api = axios.create({
         baseURL: `http://localhost:3000`
@@ -16,7 +18,7 @@ function InsertRoom(){
 
     const handleClick = () =>{
         try {
-            const response = api.get("/insertroom",{
+            const response = api.get("/insertRoom",{
                 params:{
                     numRoom,
                     price,
@@ -24,6 +26,7 @@ function InsertRoom(){
                     superficie,
                     capacity,
                     hotel,
+                    dommages,
                 },
             });
         } catch (error) {
@@ -31,6 +34,10 @@ function InsertRoom(){
         }
     }
 
+    const handleCheck = (event: { target: { checked: any; }; }) => {
+        setDommages(event.target.checked);
+      };
+      console.log(dommages);
     return(
         <>
             <div className='containerForm'>
@@ -80,6 +87,14 @@ function InsertRoom(){
                     type="text"
                     value={view}
                     onChange={(e) => setView(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="id">Is there damages to the room?</label>
+                    <input className='checkbox'
+                    type="checkbox"
+                    checked={dommages}
+                    onChange={(e)=>handleCheck(e)}
                     />
                 </div>
                 <div className='submit' onClick={handleClick}>

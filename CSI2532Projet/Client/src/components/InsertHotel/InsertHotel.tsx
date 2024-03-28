@@ -6,6 +6,8 @@ function InsertHotel(){
     const [hotelChain, setHotelChain] = useState("");
     const [numStars, setNumStars] = useState(0);
     const [numTel, setNumTel] = useState(0);
+    const [numClients, setNumClients] = useState(0);
+    const [numRooms, setNumRooms] = useState(0);
     const [email, setEmail] = useState("");
     const [hotel, setHotel] = useState("");
     const [country, setCountry] = useState("");
@@ -19,7 +21,7 @@ function InsertHotel(){
 
     const handleClick = () =>{
         try {
-            const response = api.get("/inserthotel",{
+            const response = api.get("/insertHotel",{
                 params:{
                     hotel,
                     hotelChain,
@@ -30,6 +32,8 @@ function InsertHotel(){
                     postal,
                     streetNum,
                     country,
+                    numRooms,
+                    numClients,
                 },
             });
         } catch (error) {
@@ -104,17 +108,33 @@ function InsertHotel(){
                     id="lastName"
                     name="lastName"
                     value={city}
-                    onChange={(e) => setCountry(e.target.value)}
+                    onChange={(e) => setCity(e.target.value)}
                     />
                 </div>
                 <div className="form-group">
                     <label htmlFor="lastName">Street Number:</label>
                     <input className='last'
-                    type="text"
+                    type="number"
                     id="lastName"
                     name="lastName"
                     value={streetNum}
                     onChange={(e) => setStreetNum(parseFloat(e.target.value))}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="lastName">Number of rooms:</label>
+                    <input className='last'
+                    type="number"
+                    value={numRooms}
+                    onChange={(e) => setNumRooms(parseFloat(e.target.value))}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="lastName">Number of clients:</label>
+                    <input className='last'
+                    type="number"
+                    value={numClients}
+                    onChange={(e) => setNumClients(parseFloat(e.target.value))}
                     />
                 </div>
                 <div className="form-group">

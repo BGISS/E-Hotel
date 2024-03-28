@@ -15,7 +15,7 @@ function InsertEmployee(){
 
     const handleClick = () =>{
         try {
-            const response = api.get("/insertemployee",{
+            const response = api.get("/insertEmployee",{
                 params:{
                     firstName,
                     lastName,

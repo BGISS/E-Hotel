@@ -89,3 +89,8 @@
     background-color: black;
     cursor: pointer;
 }
+
+.checkbox{
+    width: 5rem;
+    height: 2rem;
+}

@@ -18,7 +18,7 @@ function InsertHotelChain(){
 
     const handleClick = () =>{
         try {
-            const response = api.get("/inserthotelchain",{
+            const response = api.get("/insertHotelChain",{
                 params:{
                     hotelChain,
                     numHotels,

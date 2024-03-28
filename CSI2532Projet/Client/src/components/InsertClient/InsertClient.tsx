@@ -5,9 +5,9 @@ import axios from "axios";
 function InsertClient(){
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [clientNas, setClientNas] = useState(0);
-    const [registration, setRegistration] = useState("");
+    //const [email, setEmail] = useState("");
+    const [nas_client, setClientNas] = useState(0);
+    const [date, setRegistration] = useState("");
 
     const api = axios.create({
         baseURL: `http://localhost:3000`
@@ -15,13 +15,13 @@ function InsertClient(){
 
     const handleClick = () =>{
         try {
-            const response = api.get("/insertclient",{
+            const response = api.get("/createClient",{
                 params:{
                     firstName,
                     lastName,
-                    email,
-                    clientNas,
-                    registration,
+                    //email,
+                    nas_client,
+                    date,
                 },
             });
         } catch (error) {
@@ -58,7 +58,7 @@ function InsertClient(){
                     type="date"
                     id="date"
                     name="date"
-                    value={registration}
+                    value={date}
                     onChange={(e) => setRegistration(e.target.value)}
                     />
                 </div>
@@ -68,18 +68,18 @@ function InsertClient(){
                 type="number"
                 id="clientNas"
                 name="clientNas"
-                value={clientNas}
+                value={nas_client}
                 onChange={(e) => setClientNas(parseFloat(e.target.value))}
                 />
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                     <label htmlFor="email">Email:</label>
                     <input className='email'
                     type="text"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     />
-                </div>
+                </div> */}
                 <div className='submit' onClick={handleClick}>
                     Insert
                 </div>

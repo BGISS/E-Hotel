@@ -1,0 +1,27 @@
+*, *::before, *::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.card-container {
+    width: 17rem;
+    height: max-content;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+}
+
+.list{
+    list-style-type: none;
+    text-align: start;
+}
+
+.edit-btn {
+    margin-inline-start: 3rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    
+}

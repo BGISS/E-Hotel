@@ -8,14 +8,19 @@ import Login from "./Login";
 import DeletePage from "./DeletePage";
 import ManageInfoOptions from "./ManageInfoOptions";
 import Insert from "./Insert";
+import UpdatePage from "./UpdatePage";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />}></Route>
+        <Route path="/" element={<UpdatePage />}></Route>
         <Route path="client" element={<CustomerSearchPage />}></Route>
         <Route path="employee" element={<EmployeePage />} />
+        <Route path="admin" element={<ManageInfoOptions />} />
+        <Route path="delete-info" element={<DeletePage />} />
+        <Route path="update-info" element={<ManageInfoOptions />} />
+        <Route path="insert-info" element={<Insert />} />
       </Routes>
     </Router>
   );

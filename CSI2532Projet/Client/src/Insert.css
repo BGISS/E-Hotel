@@ -1,0 +1,68 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    padding: 2rem;
+    align-items: center;
+    justify-content: space-between;
+    height: 90vh;
+}
+
+.optionstext{
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 3rem;
+    text-align: left;
+}
+
+.clientstext{
+    transition: font-size 0.3s ease;
+    cursor: pointer;
+}
+
+.clientstext:hover{
+    font-size: 3.5rem;
+}
+.employeestext{
+    transition: font-size 0.3s ease;
+    cursor: pointer;
+
+}
+
+.employeestext:hover{
+    font-size: 3.5rem;
+}
+
+.chainstext{
+    transition: font-size 0.3s ease;
+    cursor: pointer;
+
+}
+
+.chainstext:hover{
+    font-size: 3.5rem;
+}
+
+.hotelstext{
+    transition: font-size 0.3s ease;
+    cursor: pointer;
+
+}
+
+.hotelstext:hover{
+    font-size: 3.5rem;
+}
+
+.roomstext{
+    transition: font-size 0.3s ease;
+    cursor: pointer;
+    cursor: pointer;
+
+}
+
+.roomstext:hover{
+    font-size: 3.5rem;
+}
+
+.Form{
+    margin-right: 20rem;
+}

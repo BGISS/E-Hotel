@@ -1,0 +1,99 @@
+body{
+    font-family: 'Poppins';
+}
+
+.headerEhotel{
+    display: flex;
+    margin-top: -1.5rem;
+    flex-direction: row;
+    align-items: baseline;
+    height: 5rem;
+    font-family: 'Poppins';
+
+}
+
+.eHotel{
+    margin-left: 1rem;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #2B2996;
+}
+
+.bookingMadeEasy{
+    font-size: 1.5rem;
+    margin-left: 0.2rem;
+    color: #797878;
+    font-weight: 100;
+}
+
+.textAndButtons{
+    display: flex;
+    flex-direction: row;
+    padding: 2.5rem;
+    width: 93vw;
+    justify-content: space-between;
+}
+
+.textOnly{
+    width: 18rem;
+}
+
+.do{
+    font-weight: 400;
+    font-size: 2.8rem;
+    text-align: left;
+}
+
+.manage{
+    font-weight: 100;
+    font-size: 1.6rem;
+    text-align: left;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    font-size: 4rem;
+    font-weight: 600;
+    justify-content: center;
+}
+
+.update{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    transition: font-size 0.3s ease;
+    text-align: right;
+}
+
+.update:hover{
+    font-size: 4.3rem;
+}
+
+.u{
+    color: #E9CB29;
+}
+
+.insert{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    transition: font-size 0.3s ease;
+    text-align: right;
+}
+
+.insert:hover{
+    font-size: 4.3rem;
+}
+
+.delete{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    transition: font-size 0.3s ease;
+    text-align: right;
+}
+
+.delete:hover{
+    font-size: 4.3rem;
+}

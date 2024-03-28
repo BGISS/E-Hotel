@@ -6,12 +6,14 @@ import ReservationsPage from "./ReservationsPage";
 import LocationPage from "./LocationPage";
 import Login from "./Login";
 import DeletePage from "./DeletePage";
+import ManageInfoOptions from "./ManageInfoOptions"
+import Insert from "./Insert"
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<DeletePage />}></Route>
+        <Route path="/" element={<Insert />}></Route>
       </Routes>
     </Router>
   );

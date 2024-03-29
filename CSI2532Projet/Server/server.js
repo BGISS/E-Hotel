@@ -6,7 +6,7 @@ const cors = require('cors');
 app.use(cors());
 const client = new pg.Client({
     host: 'localhost',
-    user: 'postgres',
+    user: 'postgres', 
     port: 5432,
     password: 'Adarsh_22',
     database: 'Project'
@@ -64,6 +64,11 @@ app.get('/createClient',async(req,res)=>{
     const query= 'INSERT INTO client(nom_client,prénom_client,nas,dâte_enregistrement) VALUES($1,$2,$3,$4)';
     const data = await client.query(query, [firstName,lastName,nas_client,date]);
 })
+app.get('/createClientAddress',async(req,res)=>{
+    const{country,city,streetNum,postal,nas_client}= req.query
+    const query= 'INSERT INTO addresse(pays,ville,num_rue,code_postal,nom_chaîne,nom_hôtel,nas_client,nas_employee) VALUES($1,$2,$3,$4,$5,$6,$7,$8)'
+    await client.query(query,[country,city,streetNum,postal,null,null,nas_client,null])
+});
 
 app.get('/insertEmployee',async(req,res)=>{
     const{firstName,lastName,id,employeeNAS,hotel}= req.query
@@ -131,6 +136,7 @@ app.get('/reservations', async (req, res) => {
     const data = await getReservations()
     res.send(data)
 });
+//All the get requests to the database
 baseGetQuery= 'SELECT * FROM '
 app.get('/getClients',async(req,res)=>{
     const data= await client.query(baseGetQuery+"Client")
@@ -146,15 +152,18 @@ app.get('/getEmployee',async(req,res)=>{
 });
 app.get('/getRoom',async(req,res)=>{
     const data= await client.query(baseGetQuery+ "Chambre")
+    res.send(data.rows) 
+});
+app.get('/getChain',async(req,res)=>{
+    const data= await client.query(baseGetQuery+"chaînehôtelière")
     res.send(data.rows)
 })
+//Delete Request
 app.get('/delete',async(req,res)=>{
     const{tableName,condition}= req.query
-    console.log("table",tableName)    
-    deleteQuery=`DELETE FROM ${tableName} WHERE ${condition}`
-    console.log(`DELETE FROM ${tableName} WHERE ${condition}`);
+    deleteQuery=`DELETE FROM ${tableName} WHERE ${condition}`;
     const data= await client.query(deleteQuery)
-});  
+});   
 app.get('/getRoomNum',async(req,res)=>{
     const{checkInDate,checkOutDate,minPrice,maxPrice,hotelName}= req.query;
     searchQuery=`SELECT chambre.nom_hôtel,chambre.num_chambre,chambre.prix,chambre.capacité FROM chambre
@@ -172,6 +181,7 @@ app.get('/getRoomNum',async(req,res)=>{
 
     res.send(response.rows)
 }); 
+//Filter Request
 app.get('/searchRooms',async (req, res) => {
     const{numberPeople,roomSize,hotelChain,category,checkInDate,checkOutDate,minPrice,maxPrice}=req.query;
 var searchQuery = ""
@@ -224,13 +234,6 @@ res.send(response.rows)
 console.log(response.rows)
 });
 
-
-async function addReservation(){}
-async function getQuery(){}
-async function addLocation({start_date,end_date,employee_id,nas_client,num_chambre,nom_hotel}){
-    const baseQuery='Insert into Location(date_reserver,end_date,num_chambre,reservation_id,nas_client,employee_id,nom_hôtel)'
-    const res= await client.query(baseQuery+'')
-}
 connectPostgres();
-
-app.listen(3000,()=>{console.log("Server started on port 3000")})
+ 
+app.listen(3000,()=>{console.log("Server started on port 3000")})  

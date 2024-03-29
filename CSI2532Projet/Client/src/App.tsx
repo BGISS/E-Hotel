@@ -14,9 +14,12 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<UpdatePage />}></Route>
+        <Route path="/" element={<Login />}></Route>
         <Route path="client" element={<CustomerSearchPage />}></Route>
         <Route path="employee" element={<EmployeePage />} />
+        <Route path="reservation" element={<ReservationsPage />} />
+        <Route path="leasing" element={<LocationPage />} />
+        <Route path="logout" element={<Login />} />
         <Route path="admin" element={<ManageInfoOptions />} />
         <Route path="delete-info" element={<DeletePage />} />
         <Route path="update-info" element={<ManageInfoOptions />} />

@@ -20,11 +20,15 @@ interface RoomData {
   num_chambre: number;
   nom_hôtel: string;
 }
+interface ChainData {
+  nom_chaîne: string;
+}
 function DeletePage() {
   const [clientData, setClientData] = useState<ClientData[] | null>(null);
   const [employeeData, setEmployeeData] = useState<EmployeeData[] | null>(null);
   const [HotelData, setHotelData] = useState<HotelData[] | null>(null);
   const [RoomData, setRoomData] = useState<RoomData[] | null>(null);
+  const [chainData, setChainData] = useState<ChainData[] | null>(null);
   const [clientscolor, setclientscolor] = useState<string>("#000000");
   const [employeescolor, setemployeescolor] = useState<string>("#000000");
   const [chainscolor, setchainscolor] = useState<string>("#000000");
@@ -95,6 +99,21 @@ function DeletePage() {
       console.error("Error Fetching Room");
     }
   };
+  const getChain = async () => {
+    try {
+      const response = await api.get("/getChain");
+      setChainData(response.data);
+    } catch (error) {
+      console.error("Error Fetching Chain");
+    }
+  };
+  const onDeleteSuccess = () => {
+    getClients();
+    getEmployees();
+    getHotels();
+    getRooms();
+    getChain();
+  };
 
   return (
     <>
@@ -129,7 +148,10 @@ function DeletePage() {
               <p
                 className="chainstext"
                 style={{ color: chainscolor }}
-                onClick={() => handleClick(setchainscolor, setChainsVisible)}
+                onClick={() => {
+                  handleClick(setchainscolor, setChainsVisible);
+                  getChain();
+                }}
               >
                 Hotel chains
               </p>
@@ -177,6 +199,7 @@ function DeletePage() {
                   name={client.nom_client + " " + client.prénom_client}
                   primaryKey={client.nas}
                   tableName="Client"
+                  onDeleteSuccess={onDeleteSuccess}
                 ></DeleteCard>
               )
             )}
@@ -196,6 +219,7 @@ function DeletePage() {
                   name={employee.nom + " " + employee.prénom}
                   primaryKey={employee.nas}
                   tableName="Employé"
+                  onDeleteSuccess={onDeleteSuccess}
                 ></DeleteCard>
               )
             )}
@@ -211,9 +235,10 @@ function DeletePage() {
               ) => (
                 <DeleteCard
                   key={index}
-                  name={hotel.nom_hôtel}
+                  name={"Hôtel"}
                   primaryKey={hotel.nom_hôtel}
                   tableName="Hôtel"
+                  onDeleteSuccess={onDeleteSuccess}
                 ></DeleteCard>
               )
             )}
@@ -232,17 +257,28 @@ function DeletePage() {
                   name={room.nom_hôtel}
                   primaryKey={room.num_chambre}
                   tableName="Chambre"
+                  onDeleteSuccess={onDeleteSuccess}
                 ></DeleteCard>
               )
             )}
-          {/* <DeleteCard name="kok" primaryKey={0}></DeleteCard>
-          <DeleteCard name="kok" primaryKey={0}></DeleteCard>
-          <DeleteCard name="kok" primaryKey={0}></DeleteCard>
-          <DeleteCard name="kok" primaryKey={0}></DeleteCard>
-          <DeleteCard name="kok" primaryKey={0}></DeleteCard>
-          <DeleteCard name="kok" primaryKey={0}></DeleteCard>
-          <DeleteCard name="kok" primaryKey={0}></DeleteCard>
-          <DeleteCard name="kok" primaryKey={0}></DeleteCard> */}
+          {chainsVisible &&
+            chainData &&
+            chainData.map(
+              (
+                chain: {
+                  nom_chaîne: string;
+                },
+                index: Key | null | undefined
+              ) => (
+                <DeleteCard
+                  key={index}
+                  name={"Chaine "}
+                  primaryKey={chain.nom_chaîne}
+                  tableName="ChaîneHôtelière"
+                  onDeleteSuccess={onDeleteSuccess}
+                ></DeleteCard>
+              )
+            )}
         </div>
       </div>
     </>

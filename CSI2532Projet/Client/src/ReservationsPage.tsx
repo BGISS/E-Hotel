@@ -83,7 +83,7 @@ function ReservationsPage() {
       <div className="image-div">
         <img className="reservation-image" src={image}></img>
       </div>
-      <div className="cards">
+      <div className="cards-reserv">
         {backendData &&
           backendData.map(
             (

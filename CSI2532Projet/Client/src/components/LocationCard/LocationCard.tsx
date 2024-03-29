@@ -13,8 +13,8 @@ function LocationCard({
 }: LocationCardParam) {
   return (
     <>
-      <div className="card">
-        <div className="text">
+      <div className="card-lease">
+        <div className="text-lease">
           <p>Name: {nom}</p>
           <p>Start date: {start_date}</p>
           <p>End date: {end_date}</p>

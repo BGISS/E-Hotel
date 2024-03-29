@@ -22,11 +22,13 @@
 }
 .location-button{
     width: 8rem;
-    height: 2.5rem;
+    height: 3rem;
     background-color: #FC9163;
     font-family: "Poppins",sans-serif;
     font-weight: 600;
+    font-size: 0.9rem;
     left: 35rem;
+    bottom: 1rem;
     position: relative;
     border: 0.08rem solid #454441;
     border-radius: 1rem;

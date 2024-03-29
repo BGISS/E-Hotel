@@ -16,8 +16,8 @@ function ReservationCard({
 }: ReservationCardParam) {
   return (
     <>
-      <div className="card">
-        <div className="text">
+      <div className="card-reservation">
+        <div className="text-reservation">
           <p>Name: {nom}</p>
           <p>Start date: {start_date}</p>
           <p>End date: {end_date}</p>

@@ -1,13 +1,20 @@
 import axios from "axios";
 import "./DeleteCard.css";
 import { FaTimes } from "react-icons/fa";
+
 interface CardData {
   name: string;
   primaryKey: any;
   tableName: string;
+  onDeleteSuccess: () => void;
 }
 [];
-function DeleteCard({ name, primaryKey, tableName }: CardData) {
+function DeleteCard({
+  name,
+  primaryKey,
+  tableName,
+  onDeleteSuccess,
+}: CardData) {
   const api = axios.create({
     baseURL: `http://localhost:3000`,
   });
@@ -18,13 +25,16 @@ function DeleteCard({ name, primaryKey, tableName }: CardData) {
   ) => {
     var condition = "";
     if (tableName === "Client") {
-      condition = "nas=";
+      condition = "nas=" + primaryKey;
     } else if (tableName === "Employé") {
-      condition = "nas=";
+      condition = "nas=" + primaryKey;
     } else if (tableName === "Hôtel") {
-      condition = "hôtel_name=";
+      condition = "nom_hôtel= " + `'${primaryKey}'`;
+    } else if (tableName === "ChaîneHôtelière") {
+      condition = "nom_chaîne= " + `'${primaryKey}'`;
+    } else if (tableName === "Chambre") {
+      condition = "num_chambre=" + primaryKey + " AND nom_hôtel=" + `'${name}'`;
     }
-    condition = condition + primaryKey;
     console.log(tableName);
 
     try {
@@ -34,6 +44,7 @@ function DeleteCard({ name, primaryKey, tableName }: CardData) {
           condition,
         },
       });
+      onDeleteSuccess();
     } catch (error) {
       console.log(error);
     }

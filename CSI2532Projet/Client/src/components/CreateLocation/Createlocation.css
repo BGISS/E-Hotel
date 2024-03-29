@@ -1,4 +1,4 @@
-.container {
+.container-form {
     font-family: "Poppins";
     border: black 5px;
     font-size: 1.6rem;;
@@ -13,7 +13,7 @@
     align-items: center;
   }
   
-  .content {
+  .content-form {
     background-color: white;
     padding: 2rem;
     border-radius: 0.5rem;
@@ -23,13 +23,13 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   }
 
-.content.h2{
+.content-form.h2{
     position: relative;
     right: 0.5em;
-    margin-bottom: 1rem
+    margin-bottom: 1.5rem
 
 }
-.form-group {
+.form-group-lease {
   margin-bottom: 1.5rem;
 }
 
@@ -52,7 +52,7 @@ input[type="number"]{
 
 select {
   appearance: none;
-  width: 64%;
+  width: 60%;
 }
 
 button[type="submit"] {

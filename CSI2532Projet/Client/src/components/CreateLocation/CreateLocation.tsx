@@ -28,6 +28,10 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
   const [clientNas, setClientNas] = useState(0);
   const [employeeId, setEmployeeId] = useState(0);
   const [payment, setPayment] = useState(0);
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
+  const [postal, setPostal] = useState("");
+  const [streetNum, setStreetNum] = useState(0);
   //Checks whether the customer exists
   const handleDropdownChange = (e: { target: { value: string } }) => {
     setIsExistingClient(e.target.value === "yes");
@@ -85,6 +89,10 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
     lastName: string,
     registration: string,
     payment: number,
+    country: string,
+    city: string,
+    postal: string,
+    streetNum: number,
     date_reserver: string,
     end_date: string,
     num_chambre: number,
@@ -112,12 +120,16 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
       if (
         !validateInput(firstName) ||
         !validateInput(lastName) ||
-        !validateInput(registration)
+        !validateInput(registration) ||
+        !validateInput(city) ||
+        !validateInput(country) ||
+        !validateInput(postal) ||
+        !validateInput(streetNum)
       ) {
         toast.error("Please fill in all required fields.");
         return;
       }
-      const response = await api.get("/createClient", {
+      await api.get("/createClient", {
         params: {
           firstName,
           lastName,
@@ -125,9 +137,18 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
           nas_client,
         },
       });
+      await api.get("/createClientAddress", {
+        params: {
+          country,
+          city,
+          streetNum,
+          postal,
+          nas_client,
+        },
+      });
     }
     //Create the leasing
-    const response = await api.get("/createLocation", {
+    await api.get("/createLocation", {
       params: {
         payment,
         date_reserver,
@@ -143,11 +164,11 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="container" onClick={onClose}>
-      <div className="content" onClick={(e) => e.stopPropagation()}>
+    <div className="container-form" onClick={onClose}>
+      <div className="content-form" onClick={(e) => e.stopPropagation()}>
         <h2>Leasing Form</h2>
         <form>
-          <div className="form-group">
+          <div className="form-group-lease">
             <label htmlFor="existingClient">Are you an existing client?</label>
             <select
               id="existingClient"
@@ -160,7 +181,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
           </div>
           {!isExistingClient && (
             <>
-              <div className="form-group">
+              <div className="form-group-lease">
                 <label htmlFor="firstName">First Name:</label>
                 <input
                   type="text"
@@ -170,7 +191,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
                   onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
-              <div className="form-group">
+              <div className="form-group-lease">
                 <label htmlFor="lastName">Last Name:</label>
                 <input
                   type="text"
@@ -180,7 +201,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
                   onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
-              <div className="form-group">
+              <div className="form-group-lease">
                 <label htmlFor="date">Date:</label>
                 <input
                   type="date"
@@ -190,9 +211,49 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
                   onChange={(e) => setRegistration(e.target.value)}
                 />
               </div>
+              <div className="form-group-lease">
+                <label htmlFor="date">Country:</label>
+                <input
+                  type="text"
+                  id="date"
+                  name="date"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                />
+              </div>
+              <div className="form-group-lease">
+                <label htmlFor="date">City:</label>
+                <input
+                  type="text"
+                  id="date"
+                  name="date"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                />
+              </div>
+              <div className="form-group-lease">
+                <label htmlFor="date">Postal Code:</label>
+                <input
+                  type="text"
+                  id="date"
+                  name="date"
+                  value={postal}
+                  onChange={(e) => setPostal(e.target.value)}
+                />
+              </div>
+              <div className="form-group-lease">
+                <label htmlFor="date">Street num:</label>
+                <input
+                  type="number"
+                  id="date"
+                  name="date"
+                  value={streetNum}
+                  onChange={(e) => setStreetNum(parseFloat(e.target.value))}
+                />
+              </div>
             </>
           )}
-          <div className="form-group">
+          <div className="form-group-lease">
             <label htmlFor="locationId">Location ID:</label>
             <input
               type="number"
@@ -202,7 +263,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
               onChange={(e) => setLocationId(parseFloat(e.target.value))}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-lease">
             <label htmlFor="hotelName">Hotel Name:</label>
             <input
               type="text"
@@ -212,7 +273,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
               onChange={(e) => setHotelName(e.target.value)}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-lease">
             <label htmlFor="clientNas">Client NAS:</label>
             <input
               type="number"
@@ -222,7 +283,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
               onChange={(e) => setClientNas(parseFloat(e.target.value))}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-lease">
             <label htmlFor="employeeId">Employee ID:</label>
             <input
               type="number"
@@ -232,7 +293,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
               onChange={(e) => setEmployeeId(parseFloat(e.target.value))}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-lease">
             <label htmlFor="startDate">Start Date:</label>
             <input
               type="date"
@@ -242,7 +303,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
               onChange={(e) => setCheckInDate(e.target.value)}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-lease">
             <label htmlFor="endDate">End Date:</label>
             <input
               type="date"
@@ -251,7 +312,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
               onChange={(e) => setCheckOutDate(e.target.value)}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-lease">
             <label htmlFor="minPrice">Min Price:</label>
             <input
               type="number"
@@ -261,7 +322,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
               onChange={(e) => setMinPrice(parseFloat(e.target.value))}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-lease">
             <label htmlFor="maxPrice">Max Price:</label>
             <input
               type="number"
@@ -271,7 +332,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
               onChange={(e) => setMaxPrice(parseFloat(e.target.value))}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-lease">
             <label htmlFor="roomNum">Room Number:</label>
             <select
               className="select-room"
@@ -302,7 +363,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
                 )}
             </select>
           </div>
-          <div className="form-group">
+          <div className="form-group-lease">
             <label htmlFor="payment">Payment:</label>
             <input
               type="number"
@@ -321,6 +382,10 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
                 lastName,
                 registration,
                 payment,
+                country,
+                city,
+                postal,
+                streetNum,
                 checkInDate,
                 checkOutDate,
                 roomNum,

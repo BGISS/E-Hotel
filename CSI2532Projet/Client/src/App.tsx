@@ -9,12 +9,13 @@ import DeletePage from "./DeletePage";
 import ManageInfoOptions from "./ManageInfoOptions";
 import Insert from "./Insert";
 import UpdatePage from "./UpdatePage";
+import Views from "./Views";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<CustomerSearchPage />}></Route>
+        <Route path="/" element={<Views />}></Route>
         <Route path="client" element={<CustomerSearchPage />}></Route>
         <Route path="employee" element={<EmployeePage />} />
         <Route path="reservation" element={<ReservationsPage />} />

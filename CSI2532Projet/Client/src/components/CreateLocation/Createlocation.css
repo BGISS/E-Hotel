@@ -33,16 +33,16 @@
   margin-bottom: 1.5rem;
 }
 
-label {
+.content-form label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: bold;
 }
 
-select,
-input[type="text"],
-input[type="date"],
-input[type="number"]{
+.select-location,
+.container-form [type="text"],
+.container-form [type="date"],
+.container-form [type="number"]{
   width: 60%;
   padding: 1rem;
   font-size: 1.6rem;
@@ -50,12 +50,12 @@ input[type="number"]{
   border-radius: 0.5rem;
 }
 
-select {
+.select-location {
   appearance: none;
   width: 60%;
 }
 
-button[type="submit"] {
+.container-form button[type="submit"] {
   display: block;
   background-color: #FC9163;
   font-family: "Poppins",sans-serif;
@@ -75,6 +75,6 @@ button[type="submit"] {
   margin-top: 2rem;
 }
 
-button[type="submit"]:hover {
+.container-form [type="submit"]:hover {
   background-color:#F4C587;
 }

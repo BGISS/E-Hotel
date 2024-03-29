@@ -173,6 +173,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
             <select
               id="existingClient"
               name="existingClient"
+              className="select-location"
               onChange={handleDropdownChange}
             >
               <option value="no">No</option>
@@ -335,7 +336,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
           <div className="form-group-lease">
             <label htmlFor="roomNum">Room Number:</label>
             <select
-              className="select-room"
+              className="select-location"
               id="selectRoom"
               onChange={handleRoomDropdown}
               onClick={() =>

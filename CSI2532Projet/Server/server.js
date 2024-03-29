@@ -8,8 +8,8 @@ const client = new pg.Client({
     host: 'localhost',
     user: 'postgres', 
     port: 5432,
-    password: 'Vivekdota2',
-    database: 'postgres'
+    password: 'Adarsh_22',
+    database: 'Project'
 })
 app.use(express.json());
 async function connectPostgres() {
@@ -88,9 +88,6 @@ app.get('/insertHotel',async(req,res)=>{
 
     const addressquery= 'INSERT INTO addresse(pays,ville,num_rue,code_postal,nom_chaîne,nom_hôtel) VALUES($1,$2,$3,$4,NULL,$5)';
     const addressedata = await client.query(addressquery, [country,city,streetNum,postal,hotel]);
-
-    //insert email
-
 })
 
 app.get('/insertHotelChain',async(req,res)=>{
@@ -242,12 +239,6 @@ app.get('/update', async (req,res) => {
     await client.query(query)
 });
 
-async function addReservation(){}
-async function getQuery(){}
-async function addLocation({start_date,end_date,employee_id,nas_client,num_chambre,nom_hotel}){
-    const baseQuery='Insert into Location(date_reserver,end_date,num_chambre,reservation_id,nas_client,employee_id,nom_hôtel)'
-    const res= await client.query(baseQuery+'')
-}
 connectPostgres();
  
 app.listen(3000,()=>{console.log("Server started on port 3000")})  

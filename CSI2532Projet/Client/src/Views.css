@@ -1,0 +1,54 @@
+.views-container{
+    display: flex;
+    flex-direction: row;
+    padding: 2rem;
+    align-items: end;
+    justify-content: space-between;
+    height: 100vh;
+    background-color: white;
+    align-items: center;
+    position: relative;
+}
+.views-options{
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 3rem;
+    text-align: right;
+    position: absolute;
+    right: 2rem;
+    align-items: end;
+}
+.room-color{
+    transition: font-size 0.3s ease;
+    cursor: pointer;
+    width: 20rem;
+    max-width:30rem;
+}
+.room-color:hover{
+    font-size: 3.3rem;
+}
+.city-color{
+    transition: font-size 0.3s ease;
+    cursor: pointer;
+    max-width: 20rem;
+}
+.city-color:hover{
+    font-size: 3.5rem;
+}
+.city-choice{
+    position: absolute;
+    top: 5rem;
+    text-align: left;
+}
+.city-text{
+    font-size: 2rem;
+    font-weight: 300;
+}
+.city-input{
+    padding: 1rem;
+    width: 18rem;
+    height: 3rem;
+    font-size: 1.6rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+}

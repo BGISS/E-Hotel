@@ -1,7 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./FilterPopUp.css";
+import axios from "axios";
 
 function FilterPopUp() {
+  const api = axios.create({
+    baseURL : 'http://localhost:3000'
+  })
+
+  const [hotelChains, setHotelChains] = useState<{nom_chaîne: string}[]>([])
+
+  const fetchHotels = async () => {
+    console.log('asd')
+     
+     try {
+        const response = await api.get('/getHotelChains')
+        setHotelChains(response.data)        
+      } catch (error) {
+        console.error('Error fetching hotel chains', error)
+      }
+    console.log(hotelChains)
+  }
   //for the buttons to change color when clicked
   const [colorAny, setColorAny] = useState<string>("#FFFFFF");
   const [colorAnyText, setColorAnyText] = useState<string>("#000000");
@@ -197,12 +215,14 @@ function FilterPopUp() {
           className="dropdown"
           value={hotelChain}
           onChange={handleSelectChange}
+          onClick={fetchHotels}
         >
-          <option value="name">Enter the name of a hotel chain</option>
-          <option value="Azure">Azure</option>
-          <option value="Tamassa">Tamassa</option>
-          <option value="DodoLaLodge">DodoLaLodge</option>
-          <option value="Maritim">Maritim</option>
+          {hotelChains && hotelChains.map((item, index) => {
+            console.log(item.nom_chaîne)
+            return(<>
+            <option key={index}>{item.nom_chaîne}</option>
+            </>)
+          })}
         </select>
         <div className="line"></div>
 

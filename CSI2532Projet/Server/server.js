@@ -239,6 +239,18 @@ app.get('/update', async (req,res) => {
     await client.query(query)
 });
 
+app.get('/getHotelChains', async (req,res) => {
+    const response = await client.query('SELECT nom_chaîne FROM chaîne_hôtelière')
+    console.log('fess',response.rows)
+    res.send(response.rows)
+});
+
+async function addReservation(){}
+async function getQuery(){}
+async function addLocation({start_date,end_date,employee_id,nas_client,num_chambre,nom_hotel}){
+    const baseQuery='Insert into Location(date_reserver,end_date,num_chambre,reservation_id,nas_client,employee_id,nom_hôtel)'
+    const res= await client.query(baseQuery+'')
+}
 connectPostgres();
  
 app.listen(3000,()=>{console.log("Server started on port 3000")})  

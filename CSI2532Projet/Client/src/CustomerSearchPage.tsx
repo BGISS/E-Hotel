@@ -4,7 +4,8 @@ import RoomIcon from "./components/RoomIcon/RoomIcon";
 import filterIcon from "./assets/filter.png";
 import FilterPopUp from "./components/FilterPopUp/FilterPopUp";
 import ResortImage from "./assets/searchpageimage.jpeg";
-import React, { Key, useState } from "react";
+import { Key, useState } from "react";
+import axios from "axios";
 
 function CustomerSearchPage() {
   interface ChambreData {

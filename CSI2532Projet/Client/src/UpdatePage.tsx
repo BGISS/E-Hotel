@@ -1,5 +1,4 @@
 import { Key, useState } from "react";
-import DeleteCard from "./components/DeleteCard/DeleteCard";
 import "./DeletePage.css";
 import axios from "axios";
 import UpdateCardClient from "./components/UpdateCard/UpdateCardClient";

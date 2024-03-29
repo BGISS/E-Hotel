@@ -19,6 +19,9 @@
     border: none;
   }
 
+  .max-price{
+    margin-right: 1rem;
+  }
   .search-button{
     border-radius: 50%;
     border: none;

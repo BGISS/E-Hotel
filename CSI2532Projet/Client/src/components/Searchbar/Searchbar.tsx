@@ -66,6 +66,7 @@ const SearchBar = ({
   return {
     chambreData,
     renderRooms: (
+      <>
       <div className="search-bar">
         <FaCalendar className="calendar-icon" size={30} />
         <input
@@ -99,24 +100,26 @@ const SearchBar = ({
           onChange={(e) => setMaxPrice(parseFloat(e.target.value))}
           placeholder="Max Price"
         />
-        <button
-          className="search-button"
-          onClick={() =>
-            handleClick(
-              numberPeople,
-              roomSize,
-              hotelChain,
-              category,
-              checkInDate,
-              checkOutDate,
-              minPrice,
-              maxPrice
-            )
-          }
-        >
-          <FaSearch className="search-icon" size={30} />
-        </button>
+        
       </div>
+      <button
+      className="search-button"
+      onClick={() =>
+        handleClick(
+          numberPeople,
+          roomSize,
+          hotelChain,
+          category,
+          checkInDate,
+          checkOutDate,
+          minPrice,
+          maxPrice
+        )
+      }
+    >
+      <FaSearch className="search-icon" size={30} />
+    </button>
+    </>
     ),
   };
 };

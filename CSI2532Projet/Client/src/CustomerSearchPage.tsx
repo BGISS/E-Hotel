@@ -49,9 +49,6 @@ function CustomerSearchPage() {
             <p className="filterText">Filters</p>
           </button>
         </div>
-        <div className="img-container"></div>
-        <div className="transparent-film"></div>
-        <div className="login-container"></div>
 
         <div className="roomCardsContainer">
           {chambreData &&

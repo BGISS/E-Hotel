@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./InsertHotel.css";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 function InsertHotel() {
   const [hotelChain, setHotelChain] = useState("");
@@ -19,7 +20,33 @@ function InsertHotel() {
     baseURL: `http://localhost:3000`,
   });
 
+  function validateInput(input: any) {
+    if (input === null || input === 0 || input === "") {
+      return false;
+    }
+    return true;
+  }
+
+
   const handleClick = () => {
+
+    if (
+      !validateInput(hotel) ||
+      !validateInput(hotelChain) ||
+      !validateInput(numStars) ||
+      !validateInput(numTel) ||
+      !validateInput(country) ||
+      !validateInput(city) ||
+      !validateInput(postal) ||
+      !validateInput(streetNum) ||
+      !validateInput(numClients) ||
+      !validateInput(numRooms) ||
+      !validateInput(email) 
+    ) {
+      toast.error("Fill in the previous inputs before pressing!");
+      return;
+    }
+
     try {
       const response = api.get("/insertHotel", {
         params: {
@@ -36,6 +63,7 @@ function InsertHotel() {
           numClients,
         },
       });
+      toast.success("Request Successful!");
     } catch (error) {
       console.log(error);
     }
@@ -161,6 +189,7 @@ function InsertHotel() {
           Insert
         </div>
       </div>
+      <ToastContainer position="top-right" />
     </>
   );
 }

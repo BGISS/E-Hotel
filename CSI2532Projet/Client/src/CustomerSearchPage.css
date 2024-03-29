@@ -12,7 +12,6 @@ body{
 
 .headerEhotel{
     display: flex;
-    margin-top: -1.5rem;
     flex-direction: row;
     align-items: baseline;
     height: 5rem;

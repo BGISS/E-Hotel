@@ -1,6 +1,8 @@
 import './InsertRoom.css'
 import React, { useState } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+
 
 function InsertRoom(){
     const [numRoom, setNumRoom] = useState(0);
@@ -16,7 +18,26 @@ function InsertRoom(){
         baseURL: `http://localhost:3000`
     })
 
+    function validateInput(input: any) {
+        if (input === null || input === 0 || input === "") {
+          return false;
+        }
+        return true;
+      }
+
     const handleClick = () =>{
+        if (
+            !validateInput(numRoom) ||
+            !validateInput(price) ||
+            !validateInput(view) ||
+            !validateInput(superficie) ||
+            !validateInput(capacity) ||
+            !validateInput(hotel) ||
+            !validateInput(dommages) 
+          ) {
+            toast.error("Fill in the previous inputs before pressing!");
+            return;
+          }
         try {
             const response = api.get("/insertRoom",{
                 params:{
@@ -29,6 +50,8 @@ function InsertRoom(){
                     dommages,
                 },
             });
+            toast.success("Request Successful!");
+
         } catch (error) {
             console.log(error);
         }
@@ -101,6 +124,8 @@ function InsertRoom(){
                     Insert
                 </div>
           </div>
+          <ToastContainer position="top-right" />
+
         </>
     )
 }

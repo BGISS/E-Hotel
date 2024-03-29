@@ -1,6 +1,7 @@
 import './InsertEmployee.css'
 import React, { useState } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 function InsertEmployee(){
     const [firstName, setFirstName] = useState("");
@@ -13,7 +14,25 @@ function InsertEmployee(){
         baseURL: `http://localhost:3000`
     })
 
+    function validateInput(input: any) {
+        if (input === null || input === 0 || input === "") {
+          return false;
+        }
+        return true;
+      }
+
     const handleClick = () =>{
+
+        if (
+            !validateInput(firstName) ||
+            !validateInput(lastName) ||
+            !validateInput(employeeNas) ||
+            !validateInput(id) ||
+            !validateInput(hotel)
+          ) {
+            toast.error("Fill in the previous inputs before pressing!");
+            return;
+          }
         try {
             const response = api.get("/insertEmployee",{
                 params:{
@@ -24,6 +43,8 @@ function InsertEmployee(){
                     hotel,
                 },
             });
+            toast.success("Request Successful!");
+
         } catch (error) {
             console.log(error);
         }
@@ -82,6 +103,7 @@ function InsertEmployee(){
                     Insert
                 </div>
           </div>
+          <ToastContainer position="top-right" />
         </>
     )
 }

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import './InsertHotelChain.css'
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+
 
 function InsertHotelChain(){
     const [hotelChain, setHotelChain] = useState("");
@@ -12,11 +14,34 @@ function InsertHotelChain(){
     const [postal, setPostal] = useState("");
     const [streetNum, setStreetNum] = useState(0);
     
+
+    function validateInput(input: any) {
+        if (input === null || input === 0 || input === "") {
+          return false;
+        }
+        return true;
+      }
+
     const api = axios.create({
         baseURL: `http://localhost:3000`
     })
 
     const handleClick = () =>{
+
+        if (
+            !validateInput(hotelChain) ||
+            !validateInput(numHotels) ||
+            !validateInput(numTel) ||
+            !validateInput(email) ||
+            !validateInput(country) ||
+            !validateInput(city) ||
+            !validateInput(postal) ||
+            !validateInput(streetNum) 
+          ) {
+            toast.error("Fill in the previous inputs before pressing!");
+            return;
+          }
+
         try {
             const response = api.get("/insertHotelChain",{
                 params:{
@@ -30,6 +55,8 @@ function InsertHotelChain(){
                     numTel,
                 },
             });
+            toast.success("Request Successful!");
+
         } catch (error) {
             console.log(error);
         }
@@ -118,6 +145,8 @@ function InsertHotelChain(){
                     Insert
                 </div>
           </div>
+          <ToastContainer position="top-right" />
+
         </>
     )
 }

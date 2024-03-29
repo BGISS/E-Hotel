@@ -70,6 +70,7 @@ app.get('/createClientAddress',async(req,res)=>{
     await client.query(query,[country,city,streetNum,postal,null,null,nas_client,null])
 });
 
+
 app.get('/insertEmployee',async(req,res)=>{
     const{firstName,lastName,id,employeeNAS,hotel}= req.query
     const query= 'INSERT INTO employée(nom,prénom,nas,employee_id,nom_hôtel) VALUES($1,$2,$3,$4,$5)';

@@ -22,7 +22,7 @@ function App() {
         <Route path="logout" element={<Login />} />
         <Route path="admin" element={<ManageInfoOptions />} />
         <Route path="delete-info" element={<DeletePage />} />
-        <Route path="update-info" element={<ManageInfoOptions />} />
+        <Route path="update-info" element={<UpdatePage />} />
         <Route path="insert-info" element={<Insert />} />
       </Routes>
     </Router>

@@ -2,17 +2,18 @@ import { Key, useState } from "react";
 import DeleteCard from "./components/DeleteCard/DeleteCard";
 import "./DeletePage.css";
 import axios from "axios";
-import UpdateCard from "./components/UpdateCard/UpdateCardClient";
+import UpdateCardClient from "./components/UpdateCard/UpdateCardClient";
 interface ClientData {
-  nom_client: string;
-  prénom_client: string;
-  nas: number;
+  nom: string;
+  prénom: string;
+  nas_client: number;
   dâte_enregistrement: string;
 }
 interface EmployeeData {
+  nas: number;
   nom: string;
   prénom: string;
-  nas: number;
+  nom_hôtel: string;
 }
 interface HotelData {
   nom_hôtel: string;
@@ -167,85 +168,63 @@ function UpdatePage() {
             clientData &&
             clientData.map(
               (
-                client: {
-                  nom_client: string;
-                  prénom_client: string;
-                  nas: number;
-                  dâte_enregistrement: string;
-                },
+                item,
                 index: Key | null | undefined
               ) => (
-                <UpdateCard
+                <UpdateCardClient
                   key={index}
-                  name={`${client.prénom_client} ${client.nom_client}`}
-                  NAS={client.nas}
-                  date={client.dâte_enregistrement.substring(0, 10)}
-                ></UpdateCard>
+                  values= {Object.values(item)}
+                  keys = {Object.keys(item)}
+                  tableName="client"
+                ></UpdateCardClient>
+                
               )
             )}
           {employeeVisible &&
             employeeData &&
             employeeData.map(
               (
-                employee: {
-                  nom: string;
-                  prénom: string;
-                  nas: number;
-                },
+                item,
                 index: Key | null | undefined
               ) => (
-                <DeleteCard
+                <UpdateCardClient
                   key={index}
-                  name={employee.nom + " " + employee.prénom}
-                  primaryKey={employee.nas}
-                  tableName="Employé"
-                ></DeleteCard>
+                  values= {Object.values(item)}
+                  keys = {Object.keys(item)}
+                  tableName="employé"
+                ></UpdateCardClient>
               )
             )}
           {hotelsVisible &&
             HotelData &&
             HotelData.map(
               (
-                hotel: {
-                  nom_hôtel: string;
-                  nom_chaîne: string;
-                },
+                item,
                 index: Key | null | undefined
               ) => (
-                <DeleteCard
+                <UpdateCardClient
                   key={index}
-                  name={hotel.nom_hôtel}
-                  primaryKey={hotel.nom_hôtel}
-                  tableName="Hôtel"
-                ></DeleteCard>
+                  values= {Object.values(item)}
+                  keys = {Object.keys(item)}
+                  tableName="hôtel"
+                ></UpdateCardClient>
               )
             )}
           {roomVisible &&
             RoomData &&
             RoomData.map(
               (
-                room: {
-                  num_chambre: number;
-                  nom_hôtel: string;
-                },
+                item,
                 index: Key | null | undefined
               ) => (
-                <DeleteCard
+                <UpdateCardClient
                   key={index}
-                  name={room.nom_hôtel}
-                  primaryKey={room.num_chambre}
-                  tableName="Chambre"
-                ></DeleteCard>
+                  values= {Object.values(item)}
+                  keys = {Object.keys(item)}
+                  tableName="chambre"
+                ></UpdateCardClient>
               )
             )}
-          {/* <DeleteCard name="kok" primaryKey={0}></DeleteCard>
-          <DeleteCard name="kok" primaryKey={0}></DeleteCard>
-          <DeleteCard name="kok" primaryKey={0}></DeleteCard>
-          <DeleteCard name="kok" primaryKey={0}></DeleteCard>
-          <DeleteCard name="kok" primaryKey={0}></DeleteCard>
-          <DeleteCard name="kok" primaryKey={0}></DeleteCard>
-          <DeleteCard name="kok" primaryKey={0}></DeleteCard>
-          <DeleteCard name="kok" primaryKey={0}></DeleteCard> */}
         </div>
       </div>
     </>

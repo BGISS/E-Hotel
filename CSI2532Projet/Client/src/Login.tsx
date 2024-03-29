@@ -1,7 +1,6 @@
 import "./Login.css";
 import RowRadioGroup from "./components/RowRadioGroup/RowRadioGroup"
 import hotel from "./assets/hotel.jpg"
-import arrow from "./assets/maki_arrow.png"
 import { createTheme, ThemeProvider } from '@mui/material';
 import { TextField } from '@mui/material'
 import { useState} from 'react' 

@@ -14,9 +14,9 @@ function ManageInfoOptions(){
                     <p className="manage">With E-Hotel, you can manage all your information: clients, employees, hotel chains, hotels and even rooms, all in one place!</p>
                 </div>
                 <div className="buttons">
-                    <a className="update" href="/Update"><span className="u">Update</span> information</a>
-                    <a className="insert" href="/Insert"><span className="u">Insert</span> information</a>
-                    <a className="delete" href="/Delete"><span className="u">Delete</span> information</a>
+                    <a className="update" href="/update-info"><span className="u">Update</span> information</a>
+                    <a className="insert" href="/insert-info"><span className="u">Insert</span> information</a>
+                    <a className="delete" href="/delete-info"><span className="u">Delete</span> information</a>
                 </div>
             </div>
         </>

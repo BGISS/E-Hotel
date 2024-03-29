@@ -4,13 +4,14 @@
     box-sizing: border-box;
 }
 .card-container {
-    width: 17rem;
+    width: 20rem;
     height: max-content;
     border: 1px solid black;
     border-radius: 10px;
     padding: 1em;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .list{
@@ -19,9 +20,19 @@
 }
 
 .edit-btn {
-    margin-inline-start: 3rem;
     width: 2rem;
     height: 2rem;
-    border-radius: 50%;
-    
+    border-radius: 50%;   
+}
+
+.modal-overlay{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.4;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }

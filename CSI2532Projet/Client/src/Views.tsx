@@ -2,6 +2,7 @@ import { Key, useState } from "react";
 import "./Views.css";
 import RoomCapacityCard from "./components/RoomCapacityCard/RoomCapacityCard";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 function Views() {
   interface ViewData {
@@ -19,6 +20,13 @@ function Views() {
   const [numrooms, setnumrooms] = useState<number | null>(null);
   const [ViewData, setViewData] = useState<ViewData[] | null>(null);
 
+  function validateInput(input: any) {
+    if (input === null || input === 0 || input === "") {
+      return false;
+    }
+    return true;
+  }
+
   const handleClick = (
     setColor: React.Dispatch<React.SetStateAction<string>>,
     setVisible: React.Dispatch<React.SetStateAction<boolean>>
@@ -34,6 +42,12 @@ function Views() {
   });
 
   const handleCityClick = async () => {
+    if (
+      !validateInput(city) 
+    ) {
+      toast.error("Fill in the field before searching!");
+      return;
+    }
     try {
       const response = await api.get("/getroomsbycity", {
         params: {
@@ -47,6 +61,12 @@ function Views() {
   };
 
   const handleHotelClick = async () => {
+    if (
+      !validateInput(hotel) 
+    ) {
+      toast.error("Fill in the field before searching!");
+      return;
+    }
     try {
       const response = await api.get("/getcapacity", {
         params: {
@@ -137,6 +157,7 @@ function Views() {
           </div>
         )}
       </div>
+      <ToastContainer position="top-right" />
     </>
   );
 }

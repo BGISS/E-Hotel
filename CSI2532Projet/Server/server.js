@@ -115,9 +115,11 @@ app.get('/insertRoom',async(req,res)=>{
         view,
         superficie,
         capacity,
-        hotel,dommages,}= req.query
+        hotel,dommages,commodity}= req.query
     const query= 'INSERT INTO chambre(prix,capacité,vue,étendue,dommages,num_chambre,nom_hôtel) VALUES($1,$2,$3,$4,$5,$6,$7)';
     const data = await client.query(query, [price,capacity,view,superficie,dommages,numRoom,hotel]);
+    const comquery= 'INSERT INTO commodite(nom_commodite,num_chambre,nom_hôtel) VALUES($1,$2,$3)';
+    const comdata = await client.query(comquery, [commodity,numRoom,hotel]);
 })
 
 app.get('/locations',async(req,res)=>{

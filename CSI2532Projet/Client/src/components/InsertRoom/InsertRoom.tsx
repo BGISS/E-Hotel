@@ -11,6 +11,7 @@ function InsertRoom(){
     const [superficie, setSuperficie] = useState(0);
     const [capacity, setCapacity] = useState(0);
     const [hotel, setHotel] = useState("");
+    const [commodity, setcommodity] = useState("");
     const [dommages, setDommages] = useState<boolean>(false);
 
 
@@ -48,6 +49,7 @@ function InsertRoom(){
                     capacity,
                     hotel,
                     dommages,
+                    commodity,
                 },
             });
             toast.success("Request Successful!");
@@ -110,6 +112,14 @@ function InsertRoom(){
                     type="text"
                     value={view}
                     onChange={(e) => setView(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="commodite">Commodity:</label>
+                    <input className='email'
+                    type="text"
+                    value={commodity}
+                    onChange={(e) => setcommodity(e.target.value)}
                     />
                 </div>
                 <div className="form-group">

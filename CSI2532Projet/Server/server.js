@@ -162,6 +162,21 @@ app.get('/delete',async(req,res)=>{
     deleteQuery=`DELETE FROM ${tableName} WHERE ${condition}`;
     const data= await client.query(deleteQuery)
 });   
+
+app.get('/getroomsbycity',async(req,res)=>{
+    const{city}= req.query
+    query=`SELECT COUNT(*) FROM chambres_par_zone WHERE ville = ${city}`;
+    const data= await client.query(deleteQuery)
+    res.send(data)
+});
+
+app.get('/getcapacity',async(req,res)=>{
+    const{hotel}= req.query
+    query=`SELECT * FROM capacité_hôtels WHERE nom_hôtel = ${hotel}`;
+    const data= await client.query(deleteQuery)
+    res.send(data)
+});
+
 app.get('/getRoomNum',async(req,res)=>{
     const{checkInDate,checkOutDate,minPrice,maxPrice,hotelName}= req.query;
     searchQuery=`SELECT chambre.nom_hôtel,chambre.num_chambre,chambre.prix,chambre.capacité FROM chambre

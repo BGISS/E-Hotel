@@ -52,3 +52,32 @@
     border: 1px solid #ccc;
     border-radius: 0.5rem;
 }
+
+.searchCity{
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    width: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: black;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.searchHotel{
+    margin-top: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    width: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: black;
+    margin-bottom: 1.5rem;
+
+}

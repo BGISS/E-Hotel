@@ -7,7 +7,7 @@ function InsertEmployee(){
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [employeeNas, setemployeeNas] = useState(0);
-    const [id, setid] = useState("");
+    const [role, setrole] = useState("");
     const [hotel, setHotel] = useState("");
 
     const api = axios.create({
@@ -27,7 +27,7 @@ function InsertEmployee(){
             !validateInput(firstName) ||
             !validateInput(lastName) ||
             !validateInput(employeeNas) ||
-            !validateInput(id) ||
+            !validateInput(role) ||
             !validateInput(hotel)
           ) {
             toast.error("Fill in the previous inputs before pressing!");
@@ -38,7 +38,7 @@ function InsertEmployee(){
                 params:{
                     firstName,
                     lastName,
-                    id,
+                    role,
                     employeeNas,
                     hotel,
                 },
@@ -84,11 +84,11 @@ function InsertEmployee(){
                 />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="id">Employee ID:</label>
+                    <label htmlFor="id">Employee role:</label>
                     <input className='email'
                     type="text"
-                    value={id}
-                    onChange={(e) => setid(e.target.value)}
+                    value={role}
+                    onChange={(e) => setrole(e.target.value)}
                     />
                 </div>
                 <div className="form-group">

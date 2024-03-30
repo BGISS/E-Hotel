@@ -72,9 +72,9 @@ app.get('/createClientAddress',async(req,res)=>{
 
 
 app.get('/insertEmployee',async(req,res)=>{
-    const{firstName,lastName,id,employeeNAS,hotel}= req.query
-    const query= 'INSERT INTO employée(nom,prénom,nas,employee_id,nom_hôtel) VALUES($1,$2,$3,$4,$5)';
-    const data = await client.query(query, [firstName,lastName,employeeNAS,id,hotel]);
+    const{firstName,lastName,role,employeeNAS,hotel}= req.query
+    const query= 'INSERT INTO employée(nom,prénom,nas,role,nom_hôtel) VALUES($1,$2,$3,$4,$5)';
+    const data = await client.query(query, [firstName,lastName,employeeNAS,role,hotel]);
 })
 
 app.get('/insertHotel',async(req,res)=>{

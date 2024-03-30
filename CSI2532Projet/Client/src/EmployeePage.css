@@ -1,7 +1,3 @@
-:root{
-    background-color: #E8E3E3;
-    outline: none;
-}
 .image-div{
     top: 0;
     left: 0;
@@ -12,13 +8,17 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.5;
+    opacity: 70%;
 }
+
 .employee-cards{
+    height: 100%;
+    background-color: #E8E3E3;
     top: 10 rem;
     width: 100vw;
     bottom: 0;
     display: flex;
     flex-direction: row;
     justify-content:space-evenly;
+    
 }

@@ -2,23 +2,32 @@
     width: 19rem;
     height: 20em;
     background-color: white;
-    border-radius: 1rem;  
+    border-radius: 5px;  
+    border: 5px solid white;
+    box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.1) ;
     margin: 2rem; 
     position: relative;
+}
+.card-emp:hover{
+    border: 2px solid #FC9163;
+    border-radius: 5px;
 }
 .image{
     width: 4rem;
     margin-left:-6.3rem ;
-    margin-top: 3rem;
+    margin-top: 4rem;
     position: absolute;
 }
 .card-emp p{
     font-family:"Poppins",sans-serif;
+    text-decoration: none !important;
+    color: black;
     font-weight: 500;
     font-size: 2rem;
     bottom: 0; 
     left: 0; 
     position: absolute; 
     margin-left: 2rem;
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
+
 }

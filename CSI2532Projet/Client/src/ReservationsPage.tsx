@@ -72,6 +72,7 @@ function ReservationsPage() {
   const showReservations = async () => {
     try {
       const response = await api.get("/reservations");
+      console.log(response.data);
       setBackendData(response.data);
     } catch (error) {
       console.error("Error fetching Reservation");

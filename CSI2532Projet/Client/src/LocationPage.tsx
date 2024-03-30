@@ -31,6 +31,7 @@ function LocationPage() {
   const showLocations = async () => {
     try {
       const response = await api.get("/locations");
+      console.log(response.data);
       setBackendData(response.data);
     } catch (error) {
       console.error("Error fetching Reservation");
@@ -41,7 +42,7 @@ function LocationPage() {
       <div className="image-div">
         <img className="location-image" src={Image} />
       </div>
-      <div className="cards">
+      <div className="cards-location">
         {backendData &&
           backendData.map(
             (

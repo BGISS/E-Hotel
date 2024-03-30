@@ -165,16 +165,17 @@ app.get('/delete',async(req,res)=>{
 
 app.get('/getroomsbycity',async(req,res)=>{
     const{city}= req.query
-    query=`SELECT COUNT(*) FROM chambres_par_zone WHERE ville = ${city}`;
-    const data= await client.query(deleteQuery)
-    res.send(data)
+    query=`SELECT COUNT(*) FROM chambres_par_zone WHERE ville = '${city}'`;
+    const data= await client.query(query)
+    res.send(data.rows)
 });
 
 app.get('/getcapacity',async(req,res)=>{
     const{hotel}= req.query
-    query=`SELECT * FROM capacité_hôtels WHERE nom_hôtel = ${hotel}`;
-    const data= await client.query(deleteQuery)
-    res.send(data)
+    query=`SELECT * FROM capacité_hôtels WHERE nom_hôtel = '${hotel}'`;
+    console.log(query)
+    const data= await client.query(query)
+    res.send(data.rows)
 });
 
 app.get('/getRoomNum',async(req,res)=>{

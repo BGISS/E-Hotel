@@ -1,25 +1,23 @@
-import { Key,useState } from "react";
+import { Key, useState } from "react";
 import "./Views.css";
 import RoomCapacityCard from "./components/RoomCapacityCard/RoomCapacityCard";
 import axios from "axios";
 
-interface HotelData{
-  nom_hôtel: string;
-  num_chambre: number;
-  capacité: number;
-}
-
 function Views() {
+  interface ViewData {
+    nom_hôtel: string;
+    num_chambre: number;
+    capacité: number;
+  }
+
   const [citycolor, setCityColor] = useState<string>("#000000");
   const [roomColor, setRoomColor] = useState<string>("#000000");
   const [cityVisible, setCityVisible] = useState(false);
   const [city, setCity] = useState("");
   const [hotel, setHotel] = useState("");
   const [roomVisible, setRoomVisible] = useState(false);
-  const [numrooms, setnumrooms] = useState<number|null>(null);
-  const [HotelData, setHotelData] = useState<HotelData[] | null>(null);
-
-  
+  const [numrooms, setnumrooms] = useState<number | null>(null);
+  const [ViewData, setViewData] = useState<ViewData[] | null>(null);
 
   const handleClick = (
     setColor: React.Dispatch<React.SetStateAction<string>>,
@@ -35,29 +33,30 @@ function Views() {
     baseURL: `http://localhost:3000`,
   });
 
-  const handleCityClick=async ()=>{
-    try{
-      const response = await api.get("/getroomsbycity",{
-        params:{
+  const handleCityClick = async () => {
+    try {
+      const response = await api.get("/getroomsbycity", {
+        params: {
           city,
         },
       });
       setnumrooms(response.data);
-    } catch(error){
-      console.error("Error finding number of rooms")
+    } catch (error) {
+      console.error("Error finding number of rooms");
     }
   };
 
-  const handleHotelClick=async()=>{
-    try{
-      const response = await api.get("/getcapacity",{
-        params:{
+  const handleHotelClick = async () => {
+    try {
+      const response = await api.get("/getcapacity", {
+        params: {
           hotel,
         },
       });
-      setHotelData(response.data);
-    } catch(error){
-      console.error("Error finding capacity of rooms in hotel")
+      setViewData(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error finding capacity of rooms in hotel");
     }
   };
 
@@ -100,7 +99,9 @@ function Views() {
               value={city}
               onChange={(e) => setCity(e.target.value)}
             ></input>
-            <div className="searchCity" onClick={handleCityClick}>Search</div>
+            <div className="searchCity" onClick={handleCityClick}>
+              Search
+            </div>
             <p>{numrooms}</p>
           </div>
         )}
@@ -113,23 +114,27 @@ function Views() {
               value={hotel}
               onChange={(e) => setHotel(e.target.value)}
             ></input>
-            <div className="searchHotel" onClick={handleHotelClick}>Search</div>
-            {HotelData && HotelData.map(
-              (
-                hotel: {
-                  nom_hôtel: string;
-                  num_chambre: number;
-                  capacité: number;
-                },
-                index: number | null | undefined
-              ) => (
-                <RoomCapacityCard roomNum={hotel.num_chambre} peopleNum={hotel.capacité}></RoomCapacityCard>
-              )
-            )
-
-            }
+            <div className="searchHotel" onClick={handleHotelClick}>
+              Search
+            </div>
+            {ViewData &&
+              ViewData.map(
+                (
+                  hotel: {
+                    nom_hôtel: string;
+                    num_chambre: number;
+                    capacité: number;
+                  },
+                  index: Key | null | undefined
+                ) => (
+                  <RoomCapacityCard
+                    key={index}
+                    roomNum={hotel.num_chambre}
+                    peopleNum={hotel.capacité}
+                  ></RoomCapacityCard>
+                )
+              )}
           </div>
-          
         )}
       </div>
     </>

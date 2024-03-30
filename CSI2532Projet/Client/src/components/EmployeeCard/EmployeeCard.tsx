@@ -7,7 +7,7 @@ interface EmployeeCardParam {
 function EmployeeCard({ icon, text }: EmployeeCardParam) {
   return (
     <div className="card-emp">
-      <div className="icon">
+      <div className="icon-emp">
         <img className="image" src={icon} alt="Employee icon"></img>
       </div>
       <p>{text}</p>

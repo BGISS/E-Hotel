@@ -26,7 +26,7 @@ function InsertRoom(){
         return true;
       }
 
-    const handleClick = () =>{
+    const handleClick = async () =>{
         if (
             !validateInput(numRoom) ||
             !validateInput(price) ||
@@ -40,19 +40,41 @@ function InsertRoom(){
             return;
           }
         try {
-            const response = api.get("/insertRoom",{
+
+            const u = await api.get("/getUser",{
                 params:{
-                    numRoom,
-                    price,
-                    view,
-                    superficie,
-                    capacity,
                     hotel,
-                    dommages,
-                    commodity,
                 },
-            });
-            toast.success("Request Successful!");
+              });
+
+              if (u.data[0]!==undefined){  
+
+                const r = await api.get("/getRoom",{
+                    params:{
+                        hotel,
+                        numRoom,
+                    },
+                  });
+                  if (r.data[0]===undefined){  
+                        const response = await api.get("/insertRoom",{
+                            params:{
+                                numRoom,
+                                price,
+                                view,
+                                superficie,
+                                capacity,
+                                hotel,
+                                dommages,
+                                commodity,
+                            },
+                        });
+                        toast.success("Request Successful!");
+                    } else {
+                        toast.error("This room number is already in use")
+                    }
+            } else {
+                toast.error("This hotel name does not exist")
+            }
 
         } catch (error) {
             console.log(error);

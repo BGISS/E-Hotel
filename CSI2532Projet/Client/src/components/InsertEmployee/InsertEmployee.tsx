@@ -9,6 +9,10 @@ function InsertEmployee(){
     const [employeeNas, setemployeeNas] = useState(0);
     const [role, setrole] = useState("");
     const [hotel, setHotel] = useState("");
+    const [country, setCountry] = useState("");
+    const [city, setCity] = useState("");
+    const [postal, setPostal] = useState("");
+    const [streetNum, setStreetNum] = useState(0);
 
     const api = axios.create({
         baseURL: `http://localhost:3000`
@@ -21,29 +25,53 @@ function InsertEmployee(){
         return true;
       }
 
-    const handleClick = () =>{
+    const handleClick = async () =>{
 
         if (
             !validateInput(firstName) ||
             !validateInput(lastName) ||
             !validateInput(employeeNas) ||
             !validateInput(role) ||
-            !validateInput(hotel)
+            !validateInput(hotel)||
+            !validateInput(country) ||
+            !validateInput(city) ||
+            !validateInput(postal) ||
+            !validateInput(streetNum) 
           ) {
             toast.error("Fill in the previous inputs before pressing!");
             return;
           }
+          const type="Employee";
         try {
-            const response = api.get("/insertEmployee",{
+            const u = await api.get("/getUser",{
                 params:{
-                    firstName,
-                    lastName,
-                    role,
                     employeeNas,
-                    hotel,
+                    type,
                 },
             });
-            toast.success("Request Successful!");
+            if (u.data[0]===undefined){
+                const response = await api.get("/insertEmployee",{
+                    params:{
+                        firstName,
+                        lastName,
+                        role,
+                        employeeNas,
+                        hotel,
+                    },
+                });
+                const r = await api.get("/createEmployeeAddress",{
+                    params:{
+                        country,
+                        city,
+                        streetNum,
+                        postal,
+                        employeeNas,
+                    },
+                });
+                toast.success("Request Successful!");
+            } else {
+                toast.error("There already exists an employee with that NAS!")
+            }
 
         } catch (error) {
             console.log(error);
@@ -98,6 +126,50 @@ function InsertEmployee(){
                     value={hotel}
                     onChange={(e) => setHotel(e.target.value)}
                     />
+                </div>
+                <div className="form-group">
+                <label htmlFor="lastName">Country:</label>
+                <input
+                    className="last"
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                />
+                </div>
+                <div className="form-group">
+                <label htmlFor="lastName">City:</label>
+                <input
+                    className="last"
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                />
+                </div>
+                <div className="form-group">
+                <label htmlFor="lastName">Street Number:</label>
+                <input
+                    className="last"
+                    type="number"
+                    id="lastName"
+                    name="lastName"
+                    value={streetNum}
+                    onChange={(e) => setStreetNum(parseFloat(e.target.value))}
+                />
+                </div>
+                <div className="form-group">
+                <label htmlFor="lastName">Postal Code:</label>
+                <input
+                    className="last"
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value={postal}
+                    onChange={(e) => setPostal(e.target.value)}
+                />
                 </div>
                 <div className='submit' onClick={handleClick}>
                     Insert

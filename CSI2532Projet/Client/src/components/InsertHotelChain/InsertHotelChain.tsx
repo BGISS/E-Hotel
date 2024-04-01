@@ -26,7 +26,7 @@ function InsertHotelChain(){
         baseURL: `http://localhost:3000`
     })
 
-    const handleClick = () =>{
+    const handleClick = async() =>{
 
         if (
             !validateInput(hotelChain) ||
@@ -43,20 +43,30 @@ function InsertHotelChain(){
           }
 
         try {
-            const response = api.get("/insertHotelChain",{
+
+            const u = await api.get("/getUser",{
                 params:{
                     hotelChain,
-                    numHotels,
-                    email,
-                    country,
-                    city,
-                    postal,
-                    streetNum,
-                    numTel,
                 },
             });
-            toast.success("Request Successful!");
 
+            if (u.data[0]===undefined){
+                const response = await api.get("/insertHotelChain",{
+                    params:{
+                        hotelChain,
+                        numHotels,
+                        email,
+                        country,
+                        city,
+                        postal,
+                        streetNum,
+                        numTel,
+                    },
+                });
+                toast.success("Request Successful!");
+            } else {
+                toast.error("This hotel chain name is already in use!")
+            }
         } catch (error) {
             console.log(error);
         }

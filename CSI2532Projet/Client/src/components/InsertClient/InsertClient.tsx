@@ -26,7 +26,7 @@ function InsertClient(){
         baseURL: `http://localhost:3000`
     })
 
-    const handleClick = () =>{
+    const handleClick = async () =>{
         if (
             !validateInput(firstName) ||
             !validateInput(lastName) ||
@@ -40,33 +40,43 @@ function InsertClient(){
             toast.error("Fill in the previous inputs before pressing!");
             return;
           }
+          const type="Client";
+        
         try {
-            const response = api.get("/createClient",{
+            const u = await api.get("/getUser",{
                 params:{
-                    firstName,
-                    lastName,
                     nas_client,
-                    date,
+                    type,
                 },
             });
-            const r = api.get("/createClientAddress",{
-                params:{
-                    country,
-                    city,
-                    streetNum,
-                    postal,
-                    nas_client,
-                },
-            });
-            toast.success("Request Successful!");
-        } catch (error) {
-            console.log(error);
-        }
-        try {
+            if (u.data[0]===undefined){
+                const response = await api.get("/createClient",{
+                    params:{
+                        firstName,
+                        lastName,
+                        nas_client,
+                        date,
+                    },
+                });
+                const r = await api.get("/createClientAddress",{
+                    params:{
+                        country,
+                        city,
+                        streetNum,
+                        postal,
+                        nas_client,
+                    },
+                });
+                toast.success("Request Successful!");
+            } else {
+                toast.error("There already exists a client with that NAS!")
+            }
             
+           
         } catch (error) {
             console.log(error);
         }
+        
         
     }
 

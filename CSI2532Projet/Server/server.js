@@ -36,6 +36,43 @@ app.get("/getUser",async (req,res) => {
         console.log('err')
     }
 });
+
+app.get("/getHotel",async (req,res) => {
+    const {hotel}=req.query;
+    try {
+        const query = `SELECT * from hôtel WHERE nom_hôtel = ${hotel}`
+        console.log(query)
+        const data = await client.query(query)
+        res.send(data.rows)
+    } catch (error) {
+        console.log('err')
+    }
+});
+
+app.get("/getHotelChain",async (req,res) => {
+    const {hotelChain}=req.query;
+    try {
+        const query = `SELECT * from chaînehôtelière WHERE nom_chaine = ${hotelChain}`
+        const data = await client.query(query)
+        res.send(data.rows)
+    } catch (error) {
+        console.log('err')
+    }
+});
+
+
+app.get("/getRoom",async (req,res) => {
+    const {hotel,numRoom}=req.query;
+    try {
+        const query = `SELECT * from chambre WHERE nom_hôtel = ${hotel} and num_chambre=${numRoom}`
+        const data = await client.query(query)
+        res.send(data.rows)
+    } catch (error) {
+        console.log('err')
+    }
+});
+
+
 const baseLocationQuery= `INSERT INTO Location (location_id,reservation_id,date_reserver,end_date,num_chambre,nom_hôtel,paiement,nas_employee,nas_client) VALUES ($1, $2, $3, $4, $5, $6, $7, $8,$9)`;
 async function transform({location_id,reservation_id,date_reserver,end_date,num_chambre,nom_hôtel,paiement,nas_employee,nas_client}){
     const res = await client.query(baseLocationQuery,
@@ -68,6 +105,12 @@ app.get('/createClientAddress',async(req,res)=>{
     const{country,city,streetNum,streetName,postal,nas_client}= req.query
     const query= 'INSERT INTO adresse(nom_chaîne,num_rue,nom_rue,ville,code_postal,pays,nas_client,nas_employee,nom_hôtel) VALUES(NULL,$1,$2,$3,$4,$5,$6,NULL,NULL)'
     await client.query(query,[streetNum,streetName,city,postal,country,nas_client])
+});
+
+app.get('/createEmployeeAddress',async(req,res)=>{
+    const{country,city,streetNum,postal,employeeNAS}= req.query
+    const query= 'INSERT INTO addresse(pays,ville,num_rue,code_postal,nom_chaîne,nom_hôtel,nas_client,nas_employee) VALUES($1,$2,$3,$4,$5,$6,$7,$8)'
+    await client.query(query,[country,city,streetNum,postal,null,null,null,employeeNAS])
 });
 
 app.get('/insertEmployee',async(req,res)=>{

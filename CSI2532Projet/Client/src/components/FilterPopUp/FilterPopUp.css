@@ -139,9 +139,9 @@
     font-family: 'Poppins';
     width: 20rem;
     font-weight: 200;
-    padding-left: 1rem;
+    padding: 0.5rem;
     margin-bottom: 1rem;
-    font-size: 0.7rem;
+    font-size: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -183,6 +183,7 @@
     font-family: 'Poppins';
     width: 20rem;
     font-weight: 200;
+    font-size: 1rem;
     padding-left: 1rem;
     margin-bottom: 1rem;
 }

@@ -52,14 +52,14 @@ function ReservationsPage() {
       console.log(payment, nas_client, nom_hôtel);
       try {
         const response = await api.post("/transform", {
-          payment,
+          reservation_id,
           date_reserver,
           end_date,
           num_chambre,
-          reservation_id,
-          nas_client,
-          employee_id,
           nom_hôtel,
+          payment,
+          employee_id,
+          nas_client,
         });
       } catch (error) {
         console.error("Error inserting payment", error);

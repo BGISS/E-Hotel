@@ -25,9 +25,9 @@ function DeleteCard({
   ) => {
     var condition = "";
     if (tableName === "Client") {
-      condition = "nas=" + primaryKey;
+      condition = "nas_client=" + primaryKey;
     } else if (tableName === "Employé") {
-      condition = "nas=" + primaryKey;
+      condition = "nas_employee=" + primaryKey;
     } else if (tableName === "Hôtel") {
       condition = "nom_hôtel= " + `'${primaryKey}'`;
     } else if (tableName === "ChaîneHôtelière") {

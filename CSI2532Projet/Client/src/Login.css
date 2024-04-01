@@ -83,3 +83,12 @@
     color: white;
     font-family: 'Poppins', sans-serif;
 }
+.client-btn{
+    margin-top: 3rem;
+    width: 5rem;
+    height: 3rem;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}

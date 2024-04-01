@@ -5,12 +5,12 @@ import axios from "axios";
 interface ClientData {
   nom_client: string;
   prénom_client: string;
-  nas: number;
+  nas_client: number;
 }
 interface EmployeeData {
   nom: string;
   prénom: string;
-  nas: number;
+  nas_employee: number;
 }
 interface HotelData {
   nom_hôtel: string;
@@ -190,14 +190,14 @@ function DeletePage() {
                 client: {
                   nom_client: string;
                   prénom_client: string;
-                  nas: number;
+                  nas_client: number;
                 },
                 index: Key | null | undefined
               ) => (
                 <DeleteCard
                   key={index}
                   name={client.nom_client + " " + client.prénom_client}
-                  primaryKey={client.nas}
+                  primaryKey={client.nas_client}
                   tableName="Client"
                   onDeleteSuccess={onDeleteSuccess}
                 ></DeleteCard>
@@ -210,14 +210,14 @@ function DeletePage() {
                 employee: {
                   nom: string;
                   prénom: string;
-                  nas: number;
+                  nas_employee: number;
                 },
                 index: Key | null | undefined
               ) => (
                 <DeleteCard
                   key={index}
                   name={employee.nom + " " + employee.prénom}
-                  primaryKey={employee.nas}
+                  primaryKey={employee.nas_employee}
                   tableName="Employé"
                   onDeleteSuccess={onDeleteSuccess}
                 ></DeleteCard>

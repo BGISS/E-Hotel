@@ -32,6 +32,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
   const [city, setCity] = useState("");
   const [postal, setPostal] = useState("");
   const [streetNum, setStreetNum] = useState(0);
+  const [streetName, setStreetName] = useState("");
   //Checks whether the customer exists
   const handleDropdownChange = (e: { target: { value: string } }) => {
     setIsExistingClient(e.target.value === "yes");
@@ -99,7 +100,8 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
     nas_client: number,
     employee_id: number,
     nom_hôtel: string,
-    location_id: number
+    location_id: number,
+    streetName: string
   ) => {
     if (
       !validateInput(payment) ||
@@ -124,7 +126,8 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
         !validateInput(city) ||
         !validateInput(country) ||
         !validateInput(postal) ||
-        !validateInput(streetNum)
+        !validateInput(streetNum) ||
+        !validateInput(streetName)
       ) {
         toast.error("Please fill in all required fields.");
         return;
@@ -133,8 +136,8 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
         params: {
           firstName,
           lastName,
-          registration,
           nas_client,
+          registration,
         },
       });
       await api.get("/createClientAddress", {
@@ -142,6 +145,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
           country,
           city,
           streetNum,
+          streetName,
           postal,
           nas_client,
         },
@@ -150,14 +154,13 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
     //Create the leasing
     await api.get("/createLocation", {
       params: {
-        payment,
         date_reserver,
         end_date,
         num_chambre,
-        nas_client,
-        employee_id,
         nom_hôtel,
-        location_id,
+        payment,
+        employee_id,
+        nas_client,
       },
     });
     toast.success("Request Successful!");
@@ -250,6 +253,16 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
                   name="date"
                   value={streetNum}
                   onChange={(e) => setStreetNum(parseFloat(e.target.value))}
+                />
+              </div>
+              <div className="form-group-lease">
+                <label htmlFor="date">Street Name:</label>
+                <input
+                  type="text"
+                  id="date"
+                  name="date"
+                  value={streetName}
+                  onChange={(e) => setStreetName(e.target.value)}
                 />
               </div>
             </>
@@ -393,7 +406,8 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
                 clientNas,
                 employeeId,
                 hotelName,
-                locationId
+                locationId,
+                streetName
               );
             }}
           >

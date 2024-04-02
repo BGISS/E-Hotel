@@ -20,7 +20,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
   const [minPrice, setMinPrice] = useState<number | null>(null);
   const [maxPrice, setMaxPrice] = useState<number | null>(null);
   const [locationId, setLocationId] = useState(0);
-  const [registration, setRegistration] = useState("");
+  const [date, setDate] = useState("");
   const [chambreData, setChambreData] = useState<ChambreData[] | null>(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -116,6 +116,35 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
       toast.error("Please fill in all required fields.");
       return;
     }
+    const radioVal = "employé";
+    var NAS = nas_employee;
+    try {
+      const u = await api.get("/getUser", {
+        params: {
+          NAS,
+          radioVal,
+        },
+      });
+      if (u.data[0] != undefined) {
+        toast.error("Please Enter existing Employee ");
+        return;
+      }
+    } catch (error) {
+      console.error("Eror", error);
+    }
+    try {
+      const u = await api.get("/getUser", {
+        params: {
+          nom_hôtel,
+        },
+      });
+
+      if (u.data[0] != undefined) {
+        toast.error("Please enter a correct hotel");
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
     //Adds a new client
     if (!isExistingClient) {
       if (
@@ -154,7 +183,6 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
             nas_client,
           },
         });
-        console.log("kok", data);
       } catch (error) {
         console.error("ERROR", error);
       }
@@ -220,8 +248,8 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
                   type="date"
                   id="date"
                   name="date"
-                  value={registration}
-                  onChange={(e) => setRegistration(e.target.value)}
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
                 />
               </div>
               <div className="form-group-lease">
@@ -403,7 +431,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
               handleSubmit(
                 firstName,
                 lastName,
-                registration,
+                date,
                 payment,
                 country,
                 city,

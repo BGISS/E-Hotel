@@ -9,7 +9,7 @@ const client = new pg.Client({
     user: 'postgres', 
     port: 5432,
     password: 'Adarsh_22',
-    database: 'Project' 
+    database: 'Test' 
 })
 app.use(express.json());
 async function connectPostgres() {
@@ -90,8 +90,10 @@ async function getLocations(){
 }
 app.get('/createLocation',async(req,res)=>{
    const{date_reserver,end_date,num_chambre,nom_hôtel,paiement,nas_employee,nas_client}= req.query
+   console.log(nas_employee)
+   locationQuery= `INSERT INTO Location (reservation_id,date_reserver,end_date,num_chambre,nom_hôtel,paiement,nas_employee,nas_client) VALUES (NULL,$1, $2, $3, $4, $5, $6, $7)`
    console.log(baseLocationQuery)
-    const data = await client.query(baseLocationQuery,
+    const data = await client.query(locationQuery,
         [date_reserver,end_date,num_chambre,nom_hôtel,paiement,nas_employee,nas_client]);
        
 });
@@ -102,6 +104,7 @@ app.get('/createClient',async(req,res)=>{
     const data = await client.query(query, [nas_client,firstName,lastName,date]);
 })
 app.get('/createClientAddress',async(req,res)=>{
+    console.log("ptChips")
     const{country,city,streetNum,streetName,postal,nas_client}= req.query
     const query= 'INSERT INTO adresse(nom_chaîne,num_rue,nom_rue,ville,code_postal,pays,nas_client,nas_employee,nom_hôtel) VALUES(NULL,$1,$2,$3,$4,$5,$6,NULL,NULL)'
     await client.query(query,[streetNum,streetName,city,postal,country,nas_client])

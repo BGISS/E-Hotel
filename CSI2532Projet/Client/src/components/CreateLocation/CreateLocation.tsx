@@ -98,7 +98,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
     end_date: string,
     num_chambre: number,
     nas_client: number,
-    employee_id: number,
+    nas_employee: number,
     nom_hôtel: string,
     location_id: number,
     streetName: string
@@ -108,13 +108,12 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
       !validateInput(date_reserver) ||
       !validateInput(end_date) ||
       !validateInput(num_chambre) ||
-      validateInput(nas_client) ||
-      !validateInput(employeeId) ||
-      !validateInput(nom_hôtel) ||
-      !validateInput(locationId)
+      !validateInput(nas_client) ||
+      !validateInput(nas_employee) ||
+      !validateInput(nom_hôtel)
+      //!validateInput(locationId)
     ) {
       toast.error("Please fill in all required fields.");
-
       return;
     }
     //Adds a new client
@@ -132,26 +131,36 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
         toast.error("Please fill in all required fields.");
         return;
       }
-      await api.get("/createClient", {
-        params: {
-          firstName,
-          lastName,
-          nas_client,
-          registration,
-        },
-      });
-      await api.get("/createClientAddress", {
-        params: {
-          country,
-          city,
-          streetNum,
-          streetName,
-          postal,
-          nas_client,
-        },
-      });
+      try {
+        const data = await api.get("/createClient", {
+          params: {
+            firstName,
+            lastName,
+            nas_client,
+            registration,
+          },
+        });
+      } catch (error) {
+        console.error("ERROR", error);
+      }
+      try {
+        const data = await api.get("/createClientAddress", {
+          params: {
+            country,
+            city,
+            streetNum,
+            streetName,
+            postal,
+            nas_client,
+          },
+        });
+        console.log("kok", data);
+      } catch (error) {
+        console.error("ERROR", error);
+      }
     }
     //Create the leasing
+    console.log(nas_employee);
     await api.get("/createLocation", {
       params: {
         date_reserver,
@@ -159,7 +168,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
         num_chambre,
         nom_hôtel,
         payment,
-        employee_id,
+        nas_employee,
         nas_client,
       },
     });

@@ -137,6 +137,8 @@ app.get('/insertHotel',async(req,res)=>{
 
     const addressquery= 'INSERT INTO addresse(nom_chaîne,num_rue,nom_rue,ville,code_postal,pays,nas_client,nas_employee,nom_hôtel) VALUES(NULL,$1,$2,$3,$4,$5,NULL,NULL,$6)';
     const addressedata = await client.query(addressquery, [streetNum,streetName,city,postal,country,hotel]);
+    res.send("success");
+
 });
 
 app.get('/insertHotelChain',async(req,res)=>{
@@ -156,6 +158,8 @@ app.get('/insertHotelChain',async(req,res)=>{
     
     const telquery= 'INSERT INTO numero_telephone(num_telephone,nom_chaîne,num_chambre,nom_hôtel) VALUES($1,$2,NULL,NULL)';
     const teldata = await client.query(telquery, [numTel,hotelChain]);
+    res.send("success");
+
 });
 
 app.get('/insertRoom',async(req,res)=>{
@@ -169,6 +173,8 @@ app.get('/insertRoom',async(req,res)=>{
     const data = await client.query(query, [numRoom,hotel,price,capacity,view,superficie,dommages]);
     const comquery= 'INSERT INTO commodite(nom_commodite,num_chambre,nom_hôtel) VALUES($1,$2,$3)';
     const comdata = await client.query(comquery, [commodity,numRoom,hotel]);
+    res.send("success");
+
 });
 
 app.get('/locations',async(req,res)=>{

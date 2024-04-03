@@ -7,6 +7,7 @@ import ReservePopUp from "./components/ReserveRoomPopUp/ReserveRoomPopUp";
 import ResortImage from "./assets/searchpageimage.jpeg";
 import { Key, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function CustomerSearchPage() {
   interface ChambreData {
@@ -35,7 +36,7 @@ function CustomerSearchPage() {
   };
   const { numberPeople, roomSize, hotelChain, category, render } =
     FilterPopUp();
-  const { chambreData,checkInDate, checkOutDate, renderRooms } = SearchBar({
+  const { chambreData, checkInDate, checkOutDate, renderRooms } = SearchBar({
     numberPeople,
     roomSize,
     hotelChain,
@@ -59,6 +60,9 @@ function CustomerSearchPage() {
   return (
     <>
       <body>
+        <Link to="/view-page">
+          <button className="view-button"> See Views</button>
+        </Link>
         {ReserveVisible && (
           <div className="popupreserve">
             <ReservePopUp
@@ -66,8 +70,8 @@ function CustomerSearchPage() {
               num_chambre={num_chambre}
               prix={prix}
               capacité={capacité}
-              checkInDate = {checkInDate}
-              checkOutDate = {checkOutDate}
+              checkInDate={checkInDate}
+              checkOutDate={checkOutDate}
             ></ReservePopUp>
           </div>
         )}

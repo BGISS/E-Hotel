@@ -29,8 +29,8 @@
     font-weight: 200;
     font-size: 1.5rem;
     width:65%;
-    height: 12%;
-    border-radius: 2rem;
+    height: 20%;
+    border-radius: 1rem;
    padding: 0 1.5rem;
   border: 1px solid #ccc;
   outline: none;
@@ -41,8 +41,8 @@
   }
 .pop-up-image{
     position: relative;
-   left: 32rem;
-   bottom: 7.5rem;
+   left: 30rem;
+   bottom: 5rem;
 
   }
 .popup-container h2{

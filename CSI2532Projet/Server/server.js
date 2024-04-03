@@ -8,8 +8,8 @@ const client = new pg.Client({
     host: 'localhost',
     user: 'postgres', 
     port: 5432,
-    password: 'Vivekdota2',
-    database: 'postgres' 
+    password: 'Adarsh_22',
+    database: 'Test' 
 })
 app.use(express.json());
 async function connectPostgres() {
@@ -20,6 +20,13 @@ async function connectPostgres() {
         console.error('Error connecting to PostgreSQL database:', error);
     }
 }
+
+app.get("/ReservePopUp", async (req, res) => {
+    const query = 
+    `SELECT reservation.reservation_id, employé.nas_employee FROM employé LEFT JOIN reservation ON employé.nas_employee = reservation.nas_employee`
+    const response = await client.query(query)
+    res.send(response.rows)
+});
 
 app.get("/getUser",async (req,res) => {
     const {NAS,radioVal} = req.query
@@ -75,9 +82,9 @@ app.get("/getRoom",async (req,res) => {
 
 
 const baseLocationQuery= `INSERT INTO Location (location_id,reservation_id,date_reserver,end_date,num_chambre,nom_hôtel,paiement,nas_employee,nas_client) VALUES ($1, $2, $3, $4, $5, $6, $7, $8,$9)`;
-async function transform({location_id,reservation_id,date_reserver,end_date,num_chambre,nom_hôtel,paiement,nas_employee,nas_client}){
+async function transform({location_id,reservation_id,date_reserver,end_date,num_chambre,nom_hôtel,payment,nas_employee,nas_client}){
     const res = await client.query(baseLocationQuery,
-    [location_id,reservation_id,date_reserver,end_date,num_chambre,nom_hôtel,paiement,nas_employee,nas_client]);
+    [location_id,reservation_id,date_reserver,end_date,num_chambre,nom_hôtel,payment,nas_employee,nas_client]);
     return res.rows[0];
 }
 
@@ -119,9 +126,10 @@ app.get('/createEmployeeAddress',async(req,res)=>{
     res.send("success");
 });
 app.get('/createReservation',async(req,res)=>{
-    const{start_date,end_date,nom_hôtel,num_chambre,nas_client,nas_employee}=req.query
+    const{checkInDate,checkOutDate,nom_hôtel,num_chambre,NAS,nas_employee}=req.query
     const query='INSERT INTO reservation(date_reserver,end_date,num_chambre,nom_hôtel,nas_employee,nas_client) VALUES($1,$2,$3,$4,$5,$6)'
-    await client.query(query,[start_date,end_date,num_chambre,nom_hôtel,nas_employee,nas_client])
+    await client.query(query,[checkInDate,checkOutDate,num_chambre,nom_hôtel,nas_employee,NAS])
+    res.send("success")
 })
 app.get('/insertEmployee',async(req,res)=>{
     const{firstName,lastName,role,employeeNas,hotel}= req.query
@@ -309,10 +317,8 @@ if (roomSize!=undefined){
     searchQuery= searchQuery+` AND chambre.superficie = ${roomSize}`;
 }
 
-console.log(searchQuery)
 const response = await client.query(searchQuery)
 res.send(response.rows)
-console.log(response.rows)
 });
 
 app.get('/update', async (req,res) => {

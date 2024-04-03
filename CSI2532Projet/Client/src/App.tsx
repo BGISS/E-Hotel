@@ -25,6 +25,7 @@ function App() {
         <Route path="delete-info" element={<DeletePage />} />
         <Route path="update-info" element={<UpdatePage />} />
         <Route path="insert-info" element={<Insert />} />
+        <Route path="view-page" element={<Views />} />
       </Routes>
     </Router>
   );

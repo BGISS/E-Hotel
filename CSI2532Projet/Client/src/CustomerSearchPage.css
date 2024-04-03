@@ -111,3 +111,15 @@ body{
 .no-scroll {
     overflow: hidden;
   }
+.view-button{
+    width: 6rem;
+    height: 3rem;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    font-family: 'Poppins' sans-serif;
+    margin-top: 1rem;
+    margin-bottom: 20px;
+    cursor: pointer;
+}

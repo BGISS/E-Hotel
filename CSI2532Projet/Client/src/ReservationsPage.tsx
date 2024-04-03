@@ -13,7 +13,7 @@ function ReservationsPage() {
     end_date: string;
     num_chambre: number;
     nom_hôtel: string;
-    employee_id: number;
+    nas_employee: number;
     nas_client: number;
     reservation_id: number;
   }
@@ -45,7 +45,7 @@ function ReservationsPage() {
     num_chambre: number,
     reservation_id: number,
     nas_client: number,
-    employee_id: number,
+    nas_employee: number,
     nom_hôtel: string
   ) => {
     if (selectedReservation) {
@@ -58,7 +58,7 @@ function ReservationsPage() {
           num_chambre,
           nom_hôtel,
           payment,
-          employee_id,
+          nas_employee,
           nas_client,
         });
       } catch (error) {
@@ -94,7 +94,7 @@ function ReservationsPage() {
                 end_date: string;
                 num_chambre: number;
                 nom_hôtel: string;
-                employee_id: number;
+                nas_employee: number;
                 nas_client: number;
                 reservation_id: number;
               },

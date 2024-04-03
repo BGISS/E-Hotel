@@ -10,7 +10,7 @@ interface PopUpProps {
     num_chambre: number,
     reservation_id: number,
     nas_client: number,
-    employee_id: number,
+    nas_employee: number,
     nom_hotel: string
   ) => void;
   reservation: {
@@ -20,14 +20,17 @@ interface PopUpProps {
     num_chambre: number;
     reservation_id: number;
     nas_client: number;
-    employee_id: number;
+    nas_employee: number;
     nom_hôtel: string;
   };
 }
 
 const PopUp: React.FC<PopUpProps> = ({ onClose, onSubmit, reservation }) => {
-  const [payment, setPayment] = useState<number>(0);
+  const [payment, setPayment] = useState(0);
+  const [disabled, setDisabled] = useState(false);
   const handleSubmit = () => {
+    console.log("clicked");
+    setDisabled(true);
     // Call onSubmit with the necessary parameters
     onSubmit(
       payment,
@@ -36,7 +39,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, onSubmit, reservation }) => {
       reservation.num_chambre,
       reservation.reservation_id,
       reservation.nas_client,
-      reservation.employee_id,
+      reservation.nas_employee,
       reservation.nom_hôtel
     );
   };
@@ -51,7 +54,9 @@ const PopUp: React.FC<PopUpProps> = ({ onClose, onSubmit, reservation }) => {
           value={payment}
           onChange={(e) => setPayment(parseFloat(e.target.value))}
         ></input>
-        <button onClick={handleSubmit}>Submit</button>
+        <button className="submit" onClick={handleSubmit} disabled={disabled}>
+          Submit
+        </button>
       </div>
     </div>
   );

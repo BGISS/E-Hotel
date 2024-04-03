@@ -32,4 +32,24 @@
     padding-top: 0.5rem;
     align-items: flex-start;
     background-color: white;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.reserve-btn{
+    width: 4rem;
+    height: 2rem;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    font-family: 'Poppins' sans-serif;
+    margin-bottom: 20px;
+}
+
+.reserve-btn:hover {
+    cursor: pointer;
+    border:solid 1px #E9cB29;
 }

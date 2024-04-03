@@ -1,0 +1,35 @@
+
+.form-group{
+    margin-bottom: 3rem;
+    font-family: 'Poppins';
+    font-size: 1.5rem;
+    font-weight: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.last{
+    height: 3rem;
+    width: 20rem;
+    border: solid 1.5px #ACACAC;
+    box-shadow: 0.08rem 0.08rem #E2E0E0;
+    border-radius: 0.5rem;
+    font-family: 'Poppins';
+    font-size: 1rem;
+    font-weight: 200;
+    padding-left: 1rem;
+}
+
+.reserveRoomContainer{
+    border: solid 1.5px #ACACAC;
+    border-radius: 0.8rem;
+    width: 50rem;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
+    font-family: 'poppins';
+    padding-top: 0.5rem;
+    align-items: flex-start;
+    background-color: white;
+}

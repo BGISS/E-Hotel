@@ -8,8 +8,8 @@ interface ClientData {
   nas_client: number;
 }
 interface EmployeeData {
-  nom: string;
-  prénom: string;
+  nom_employee: string;
+  prénom_employee: string;
   nas_employee: number;
 }
 interface HotelData {
@@ -93,7 +93,7 @@ function DeletePage() {
   };
   const getRooms = async () => {
     try {
-      const response = await api.get("/getRoom");
+      const response = await api.get("/getRooms");
       setRoomData(response.data);
     } catch (error) {
       console.error("Error Fetching Room");
@@ -208,15 +208,15 @@ function DeletePage() {
             employeeData.map(
               (
                 employee: {
-                  nom: string;
-                  prénom: string;
+                  nom_employee: string;
+                  prénom_employee: string;
                   nas_employee: number;
                 },
                 index: Key | null | undefined
               ) => (
                 <DeleteCard
                   key={index}
-                  name={employee.nom + " " + employee.prénom}
+                  name={employee.nom_employee + " " + employee.prénom_employee}
                   primaryKey={employee.nas_employee}
                   tableName="Employé"
                   onDeleteSuccess={onDeleteSuccess}

@@ -30,19 +30,15 @@
 }
 
 .hotelName{
-    margin-top: -0.05rem;
 }
 
 .roomNumber{
- margin-top: -1rem;
 }
 
 .price{
-    margin-top: -1rem;
 }
 
 .numberPeople{
-    margin-top: -1rem;
 }
 
 .people{
@@ -51,6 +47,5 @@
 }
 .personIcon{
     height: 1.5rem;
-    margin-top: -1rem;
     margin-left: 0.5rem;
 }

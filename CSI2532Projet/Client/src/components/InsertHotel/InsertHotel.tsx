@@ -1,20 +1,25 @@
-import { useState } from "react";
+import { Key, useState } from "react";
 import "./InsertHotel.css";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
+interface Chaine {
+  nom_chaîne: string;
+}
 function InsertHotel() {
   const [hotelChain, setHotelChain] = useState("");
   const [numStars, setNumStars] = useState(0);
   const [numTel, setNumTel] = useState(0);
   const [numClients, setNumClients] = useState(0);
   const [numRooms, setNumRooms] = useState(0);
+  const [chaineData, setChaineData] = useState<Chaine[] | null>(null);
   const [email, setEmail] = useState("");
   const [hotel, setHotel] = useState("");
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [postal, setPostal] = useState("");
   const [streetNum, setStreetNum] = useState(0);
+  const [streetName, setStreetName] = useState("");
 
   const api = axios.create({
     baseURL: `http://localhost:3000`,
@@ -27,9 +32,7 @@ function InsertHotel() {
     return true;
   }
 
-
-  const handleClick = async() => {
-
+  const handleClick = async () => {
     if (
       !validateInput(hotel) ||
       !validateInput(hotelChain) ||
@@ -41,20 +44,21 @@ function InsertHotel() {
       !validateInput(streetNum) ||
       !validateInput(numClients) ||
       !validateInput(numRooms) ||
-      !validateInput(email) 
+      !validateInput(email) ||
+      !validateInput(streetName)
     ) {
       toast.error("Fill in the previous inputs before pressing!");
       return;
     }
 
     try {
-      const u = await api.get("/getUser",{
-        params:{
-            hotel,
+      const u = await api.get("/getHotel", {
+        params: {
+          hotel,
         },
       });
 
-      if (u.data[0]===undefined){
+      if (u.data[0] === undefined) {
         const response = await api.get("/insertHotel", {
           params: {
             hotel,
@@ -68,14 +72,23 @@ function InsertHotel() {
             country,
             numRooms,
             numClients,
+            streetName,
           },
         });
         toast.success("Request Successful!");
       } else {
-        toast.error("This hotel name is already in use!")
-    }
+        toast.error("This hotel name is already in use!");
+      }
     } catch (error) {
       console.log(error);
+    }
+  };
+  const getChain = async () => {
+    try {
+      const response = await api.get("/getChain");
+      setChaineData(response.data);
+    } catch (error) {
+      console.error("Error Fetching Chaine");
     }
   };
 
@@ -84,14 +97,25 @@ function InsertHotel() {
       <div className="containerForm">
         <div className="form-group">
           <label htmlFor="lastName">Hotel Chain:</label>
-          <input
+          <select
             className="last"
-            type="text"
-            id="lastName"
-            name="lastName"
-            value={hotelChain}
             onChange={(e) => setHotelChain(e.target.value)}
-          />
+            onClick={() => getChain()}
+          >
+            {chaineData &&
+              chaineData.map(
+                (
+                  chaine: {
+                    nom_chaîne: string;
+                  },
+                  index: Key | null | undefined
+                ) => (
+                  <option key={index} value={chaine.nom_chaîne}>
+                    {chaine.nom_chaîne}
+                  </option>
+                )
+              )}
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="hotel">Hotel Name:</label>
@@ -115,10 +139,12 @@ function InsertHotel() {
           <label htmlFor="firstName">Number of Stars:</label>
           <input
             className="first"
-            type="text"
+            type="number"
             id="firstName"
             name="firstName"
             value={numStars}
+            min={1}
+            max={5}
             onChange={(e) => setNumStars(parseFloat(e.target.value))}
           />
         </div>
@@ -126,7 +152,7 @@ function InsertHotel() {
           <label htmlFor="firstName">Telephone Number:</label>
           <input
             className="first"
-            type="text"
+            type="number"
             id="firstName"
             name="firstName"
             value={numTel}
@@ -164,6 +190,17 @@ function InsertHotel() {
             name="lastName"
             value={streetNum}
             onChange={(e) => setStreetNum(parseFloat(e.target.value))}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="lastName">Street Name:</label>
+          <input
+            className="last"
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={streetName}
+            onChange={(e) => setStreetName(e.target.value)}
           />
         </div>
         <div className="form-group">

@@ -1,8 +1,10 @@
 import "./InsertEmployee.css";
-import React, { useState } from "react";
+import React, { Key, useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-
+interface HotelData {
+  nom_hôtel: string;
+}
 function InsertEmployee() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -10,9 +12,11 @@ function InsertEmployee() {
   const [role, setrole] = useState("");
   const [hotel, setHotel] = useState("");
   const [country, setCountry] = useState("");
+  const [hote, setHote] = useState<HotelData[] | null>(null);
   const [city, setCity] = useState("");
   const [postal, setPostal] = useState("");
   const [streetNum, setStreetNum] = useState(0);
+  const [streetName, setStreetName] = useState("");
 
   const api = axios.create({
     baseURL: `http://localhost:3000`,
@@ -24,7 +28,14 @@ function InsertEmployee() {
     }
     return true;
   }
-
+  const getHotels = async () => {
+    try {
+      const response = await api.get("/getHotels");
+      setHote(response.data);
+    } catch (error) {
+      console.error("Error Fetching Hotel");
+    }
+  };
   const handleClick = async () => {
     if (
       !validateInput(firstName) ||
@@ -35,7 +46,8 @@ function InsertEmployee() {
       !validateInput(country) ||
       !validateInput(city) ||
       !validateInput(postal) ||
-      !validateInput(streetNum)
+      !validateInput(streetNum) ||
+      !validateInput(streetName)
     ) {
       toast.error("Fill in the previous inputs before pressing!");
       return;
@@ -68,6 +80,7 @@ function InsertEmployee() {
             streetNum,
             postal,
             employeeNas,
+            streetName,
           },
         });
         toast.success("Request Successful!");
@@ -126,12 +139,25 @@ function InsertEmployee() {
         </div>
         <div className="form-group">
           <label htmlFor="hotel">Hotel Name:</label>
-          <input
+          <select
             className="email"
-            type="text"
-            value={hotel}
             onChange={(e) => setHotel(e.target.value)}
-          />
+            onClick={() => getHotels()}
+          >
+            {hote &&
+              hote.map(
+                (
+                  hotel: {
+                    nom_hôtel: string;
+                  },
+                  index: Key | null | undefined
+                ) => (
+                  <option key={index} value={hotel.nom_hôtel}>
+                    {hotel.nom_hôtel}
+                  </option>
+                )
+              )}
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="lastName">Country:</label>
@@ -164,6 +190,17 @@ function InsertEmployee() {
             name="lastName"
             value={streetNum}
             onChange={(e) => setStreetNum(parseFloat(e.target.value))}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="lastName">Street Name:</label>
+          <input
+            className="last"
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={streetName}
+            onChange={(e) => setStreetName(e.target.value)}
           />
         </div>
         <div className="form-group">

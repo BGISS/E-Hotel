@@ -12,6 +12,7 @@ function InsertClient() {
   const [city, setCity] = useState("");
   const [postal, setPostal] = useState("");
   const [streetNum, setStreetNum] = useState(0);
+  const [streetName, setStreetName] = useState("");
 
   function validateInput(input: any) {
     if (input === null || input === 0 || input === "") {
@@ -33,7 +34,8 @@ function InsertClient() {
       !validateInput(country) ||
       !validateInput(city) ||
       !validateInput(postal) ||
-      !validateInput(streetNum)
+      !validateInput(streetNum) ||
+      !validateInput(streetName)
     ) {
       toast.error("Fill in the previous inputs before pressing!");
       return;
@@ -61,6 +63,7 @@ function InsertClient() {
           params: {
             country,
             city,
+            streetName,
             streetNum,
             postal,
             nas_client,
@@ -118,6 +121,7 @@ function InsertClient() {
             type="number"
             id="clientNas"
             name="clientNas"
+            min={1}
             value={nas_client}
             onChange={(e) => setClientNas(parseFloat(e.target.value))}
           />
@@ -151,8 +155,20 @@ function InsertClient() {
             type="number"
             id="lastName"
             name="lastName"
+            min={1}
             value={streetNum}
             onChange={(e) => setStreetNum(parseFloat(e.target.value))}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="lastName">Street Name:</label>
+          <input
+            className="last"
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={streetName}
+            onChange={(e) => setStreetName(e.target.value)}
           />
         </div>
         <div className="form-group">

@@ -11,6 +11,9 @@ interface ChambreData {
   num_chambre: number;
 }
 
+interface HotelData {
+  nom_hôtel: string;
+}
 const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
   //All the variables needded for the queries
   const [isExistingClient, setIsExistingClient] = useState(false);
@@ -22,6 +25,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
   const [locationId, setLocationId] = useState(0);
   const [date, setDate] = useState("");
   const [chambreData, setChambreData] = useState<ChambreData[] | null>(null);
+  const [hotel, setHotel] = useState<HotelData[] | null>(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [hotelName, setHotelName] = useState("");
@@ -52,6 +56,15 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
   const api = axios.create({
     baseURL: `http://localhost:3000`,
   });
+  const getHotels = async () => {
+    try {
+      const response = await api.get("/getHotels");
+      setHotel(response.data);
+    } catch (error) {
+      console.error("Error Fetching Hotel");
+    }
+  };
+
   //Shows the available rooms when clicked
   const handleClick = async (
     checkInDate: string,
@@ -88,7 +101,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
   const handleSubmit = async (
     firstName: string,
     lastName: string,
-    registration: string,
+    dâte_enregistrement: string,
     payment: number,
     country: string,
     city: string,
@@ -111,7 +124,6 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
       !validateInput(nas_client) ||
       !validateInput(nas_employee) ||
       !validateInput(nom_hôtel)
-      //!validateInput(locationId)
     ) {
       toast.error("Please fill in all required fields.");
       return;
@@ -125,32 +137,20 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
           radioVal,
         },
       });
-      if (u.data[0] != undefined) {
+      console.log("koko", u.data[0]);
+      if (u.data[0] === undefined) {
         toast.error("Please Enter existing Employee ");
         return;
       }
     } catch (error) {
       console.error("Eror", error);
     }
-    try {
-      const u = await api.get("/getUser", {
-        params: {
-          nom_hôtel,
-        },
-      });
-
-      if (u.data[0] != undefined) {
-        toast.error("Please enter a correct hotel");
-      }
-    } catch (error) {
-      console.error("Error", error);
-    }
     //Adds a new client
     if (!isExistingClient) {
       if (
         !validateInput(firstName) ||
         !validateInput(lastName) ||
-        !validateInput(registration) ||
+        !validateInput(dâte_enregistrement) ||
         !validateInput(city) ||
         !validateInput(country) ||
         !validateInput(postal) ||
@@ -166,7 +166,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
             firstName,
             lastName,
             nas_client,
-            registration,
+            dâte_enregistrement,
           },
         });
       } catch (error) {
@@ -288,6 +288,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
                   type="number"
                   id="date"
                   name="date"
+                  min={1}
                   value={streetNum}
                   onChange={(e) => setStreetNum(parseFloat(e.target.value))}
                 />
@@ -305,24 +306,26 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
             </>
           )}
           <div className="form-group-lease">
-            <label htmlFor="locationId">Location ID:</label>
-            <input
-              type="number"
-              id="locationId"
-              name="locationId"
-              value={locationId}
-              onChange={(e) => setLocationId(parseFloat(e.target.value))}
-            />
-          </div>
-          <div className="form-group-lease">
             <label htmlFor="hotelName">Hotel Name:</label>
-            <input
-              type="text"
-              id="hotelName"
-              name="hotelName"
-              value={hotelName}
+            <select
+              className="select-location"
               onChange={(e) => setHotelName(e.target.value)}
-            />
+              onClick={() => getHotels()}
+            >
+              {hotel &&
+                hotel.map(
+                  (
+                    hotel: {
+                      nom_hôtel: string;
+                    },
+                    index: Key | null | undefined
+                  ) => (
+                    <option key={index} value={hotel.nom_hôtel}>
+                      {hotel.nom_hôtel}{" "}
+                    </option>
+                  )
+                )}
+            </select>
           </div>
           <div className="form-group-lease">
             <label htmlFor="clientNas">Client NAS:</label>
@@ -330,16 +333,18 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
               type="number"
               id="clientNas"
               name="clientNas"
+              min={1}
               value={clientNas}
               onChange={(e) => setClientNas(parseFloat(e.target.value))}
             />
           </div>
           <div className="form-group-lease">
-            <label htmlFor="employeeId">Employee ID:</label>
+            <label htmlFor="employeeId">Employee Nas:</label>
             <input
               type="number"
               id="employeeId"
               name="employeeId"
+              min={1}
               value={employeeId}
               onChange={(e) => setEmployeeId(parseFloat(e.target.value))}
             />

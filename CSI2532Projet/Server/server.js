@@ -118,7 +118,11 @@ app.get('/createEmployeeAddress',async(req,res)=>{
     await client.query(query,[null,streetNum,streetName,city,postal,country,null,employeeNAS,null])
     res.send("success");
 });
-
+app.get('/createReservation',async(req,res)=>{
+    const{start_date,end_date,nom_hôtel,num_chambre,nas_client,nas_employee}=req.query
+    const query='INSERT INTO reservation(date_reserver,end_date,num_chambre,nom_hôtel,nas_employee,nas_client) VALUES($1,$2,$3,$4,$5,$6)'
+    await client.query(query,[start_date,end_date,num_chambre,nom_hôtel,nas_employee,nas_client])
+})
 app.get('/insertEmployee',async(req,res)=>{
     const{firstName,lastName,role,employeeNas,hotel}= req.query
     const query= 'INSERT INTO employé(nas_employee,nom_employee,prénom_employee,nom_hôtel,role) VALUES($1,$2,$3,$4,$5)';

@@ -1,3 +1,4 @@
+import axios from "axios";
 import "./ReserveRoomPopUp.css";
 import { useState } from "react";
 
@@ -14,8 +15,14 @@ function ReserveRoomPopUp({
   prix,
   capacité,
 }: RoomReserveParam) {
+  const api = axios.create({
+    baseURL: `http://localhost:3000`,
+  });
   const [NAS, setNAS] = useState(0);
-
+  const createReservation = async () => {
+    try {
+    } catch (error) {}
+  };
   return (
     <>
       <div className="reserveRoomContainer">

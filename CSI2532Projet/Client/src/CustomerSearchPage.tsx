@@ -31,6 +31,7 @@ function CustomerSearchPage() {
   };
   const handleClickY = () => {
     setIsVisible(false);
+    setReserveIsVisible(false);
   };
   const { numberPeople, roomSize, hotelChain, category, render } =
     FilterPopUp();

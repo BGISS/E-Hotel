@@ -7,6 +7,8 @@ interface RoomReserveParam {
   num_chambre: number;
   prix: number;
   capacité: number;
+  checkInDate: string;
+  checkOutDate: string;
 }
 
 function ReserveRoomPopUp({
@@ -14,7 +16,9 @@ function ReserveRoomPopUp({
   num_chambre,
   prix,
   capacité,
-}: RoomReserveParam) {
+  checkInDate,
+  checkOutDate
+}: RoomReserveParam ) {
   const api = axios.create({
     baseURL: `http://localhost:3000`,
   });

@@ -65,6 +65,8 @@ const SearchBar = ({
 
   return {
     chambreData,
+    checkInDate,
+    checkOutDate,
     renderRooms: (
       <>
       <div className="search-bar">

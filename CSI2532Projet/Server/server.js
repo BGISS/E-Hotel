@@ -8,8 +8,8 @@ const client = new pg.Client({
     host: 'localhost',
     user: 'postgres', 
     port: 5432,
-    password: 'Adarsh_22',
-    database: 'Test' 
+    password: 'Vivekdota2',
+    database: 'postgres' 
 })
 app.use(express.json());
 async function connectPostgres() {

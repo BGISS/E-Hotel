@@ -35,7 +35,7 @@ function CustomerSearchPage() {
   };
   const { numberPeople, roomSize, hotelChain, category, render } =
     FilterPopUp();
-  const { chambreData, renderRooms } = SearchBar({
+  const { chambreData,checkInDate, checkOutDate, renderRooms } = SearchBar({
     numberPeople,
     roomSize,
     hotelChain,
@@ -66,6 +66,8 @@ function CustomerSearchPage() {
               num_chambre={num_chambre}
               prix={prix}
               capacité={capacité}
+              checkInDate = {checkInDate}
+              checkOutDate = {checkOutDate}
             ></ReservePopUp>
           </div>
         )}

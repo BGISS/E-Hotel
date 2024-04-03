@@ -9,7 +9,7 @@ const client = new pg.Client({
     user: 'postgres', 
     port: 5432,
     password: 'Adarsh_22',
-    database: 'Project' 
+    database: 'Test' 
 })
 app.use(express.json());
 async function connectPostgres() {
@@ -24,7 +24,7 @@ async function connectPostgres() {
 app.get("/getUser",async (req,res) => {
     const {NAS,radioVal} = req.query
     var columnName = "nas_client"
-    if(radioVal == "Employee"){
+    if(radioVal == "employé"){
         columnName = "nas_employee"
     }
     try {
@@ -89,10 +89,12 @@ async function getLocations(){
     return res.rows
 }
 app.get('/createLocation',async(req,res)=>{
-   const{date_reserver,end_date,num_chambre,nom_hôtel,paiement,nas_employee,nas_client}= req.query
-   console.log(baseLocationQuery)
-    const data = await client.query(baseLocationQuery,
-        [date_reserver,end_date,num_chambre,nom_hôtel,paiement,nas_employee,nas_client]);
+   const{date_reserver,end_date,num_chambre,nom_hôtel,payement,nas_employee,nas_client}= req.query
+   console.log(nas_employee)
+   locationQuery= `INSERT INTO Location (reservation_id,date_reserver,end_date,num_chambre,nom_hôtel,paiement,nas_employee,nas_client) VALUES (NULL,$1, $2, $3, $4, $5, $6, $7)`
+    const data = await client.query(locationQuery,
+        [date_reserver,end_date,num_chambre,nom_hôtel,payement,nas_employee,nas_client]);
+    res.send("Success");
        
 });
 
@@ -100,23 +102,28 @@ app.get('/createClient',async(req,res)=>{
     const{firstName,lastName,nas_client,date}= req.query
     const query= 'INSERT INTO client(nas_client,nom_client,prénom_client,dâte_enregistrement) VALUES($1,$2,$3,$4)';
     const data = await client.query(query, [nas_client,firstName,lastName,date]);
+    res.send("Success");
 })
 app.get('/createClientAddress',async(req,res)=>{
+    console.log("ptChips")
     const{country,city,streetNum,streetName,postal,nas_client}= req.query
     const query= 'INSERT INTO adresse(nom_chaîne,num_rue,nom_rue,ville,code_postal,pays,nas_client,nas_employee,nom_hôtel) VALUES(NULL,$1,$2,$3,$4,$5,$6,NULL,NULL)'
     await client.query(query,[streetNum,streetName,city,postal,country,nas_client])
+    res.send("Success");
 });
 
 app.get('/createEmployeeAddress',async(req,res)=>{
     const{country,city,streetNum,postal,employeeNAS}= req.query
-    const query= 'INSERT INTO addresse(pays,ville,num_rue,code_postal,nom_chaîne,nom_hôtel,nas_client,nas_employee) VALUES($1,$2,$3,$4,$5,$6,$7,$8)'
+    const query= 'INSERT INTO adresse(pays,ville,num_rue,code_postal,nom_chaîne,nom_hôtel,nas_client,nas_employee) VALUES($1,$2,$3,$4,$5,$6,$7,$8)'
     await client.query(query,[country,city,streetNum,postal,null,null,null,employeeNAS])
+    res.send("success");
 });
 
 app.get('/insertEmployee',async(req,res)=>{
-    const{firstName,lastName,role,employeeNAS,hotel}= req.query
-    const query= 'INSERT INTO employée(nas_employee,nom_employee,prénom_employee,nom_hôtel,role) VALUES($1,$2,$3,$4,$5)';
-    const data = await client.query(query, [employeeNAS,firstName,lastName,hotel,role]);
+    const{firstName,lastName,role,employeeNas,hotel}= req.query
+    const query= 'INSERT INTO employé(nas_employee,nom_employee,prénom_employee,nom_hôtel,role) VALUES($1,$2,$3,$4,$5)';
+    const data = await client.query(query, [employeeNas,firstName,lastName,hotel,role]);
+    res.send("success");
 });
 
 app.get('/insertHotel',async(req,res)=>{
@@ -130,6 +137,8 @@ app.get('/insertHotel',async(req,res)=>{
 
     const addressquery= 'INSERT INTO addresse(nom_chaîne,num_rue,nom_rue,ville,code_postal,pays,nas_client,nas_employee,nom_hôtel) VALUES(NULL,$1,$2,$3,$4,$5,NULL,NULL,$6)';
     const addressedata = await client.query(addressquery, [streetNum,streetName,city,postal,country,hotel]);
+    res.send("success");
+
 });
 
 app.get('/insertHotelChain',async(req,res)=>{
@@ -149,6 +158,8 @@ app.get('/insertHotelChain',async(req,res)=>{
     
     const telquery= 'INSERT INTO numero_telephone(num_telephone,nom_chaîne,num_chambre,nom_hôtel) VALUES($1,$2,NULL,NULL)';
     const teldata = await client.query(telquery, [numTel,hotelChain]);
+    res.send("success");
+
 });
 
 app.get('/insertRoom',async(req,res)=>{
@@ -162,6 +173,8 @@ app.get('/insertRoom',async(req,res)=>{
     const data = await client.query(query, [numRoom,hotel,price,capacity,view,superficie,dommages]);
     const comquery= 'INSERT INTO commodite(nom_commodite,num_chambre,nom_hôtel) VALUES($1,$2,$3)';
     const comdata = await client.query(comquery, [commodity,numRoom,hotel]);
+    res.send("success");
+
 });
 
 app.get('/locations',async(req,res)=>{
@@ -204,6 +217,7 @@ app.get('/delete',async(req,res)=>{
     const{tableName,condition}= req.query
     deleteQuery=`DELETE FROM ${tableName} WHERE ${condition}`;
     const data= await client.query(deleteQuery)
+    res.send("Success");
 });   
 
 app.get('/getroomsbycity',async(req,res)=>{

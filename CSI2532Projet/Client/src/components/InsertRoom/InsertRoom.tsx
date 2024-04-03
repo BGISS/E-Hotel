@@ -41,7 +41,7 @@ function InsertRoom(){
           }
         try {
 
-            const u = await api.get("/getUser",{
+            const u = await api.get("/getHotels",{
                 params:{
                     hotel,
                 },

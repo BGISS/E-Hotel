@@ -33,7 +33,7 @@ app.get("/getUser",async (req,res) => {
         const data = await client.query(query)
         res.send(data.rows)
     } catch (error) {
-        console.log('err')
+        console.log(error)
     }
 });
 
@@ -68,7 +68,7 @@ app.get("/getRoom",async (req,res) => {
         const data = await client.query(query)
         res.send(data.rows)
     } catch (error) {
-        console.log('err')
+        console.log(error)
     }
 });
 

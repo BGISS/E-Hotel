@@ -74,7 +74,7 @@
     font-size: 0.8rem;
 }
 
-.emp-btn{
+.emp-btn, .client-btn, .admin-btn{
     margin-top: 3rem;
     width: 5rem;
     height: 3rem;

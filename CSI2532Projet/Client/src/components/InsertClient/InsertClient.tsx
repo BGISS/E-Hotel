@@ -7,7 +7,7 @@ function InsertClient() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [nas_client, setClientNas] = useState(0);
-  const [date, setRegistration] = useState("");
+  const [dâte_enregistrement, setRegistration] = useState("");
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [postal, setPostal] = useState("");
@@ -30,7 +30,7 @@ function InsertClient() {
       !validateInput(firstName) ||
       !validateInput(lastName) ||
       !validateInput(nas_client) ||
-      !validateInput(date) ||
+      !validateInput(dâte_enregistrement) ||
       !validateInput(country) ||
       !validateInput(city) ||
       !validateInput(postal) ||
@@ -56,7 +56,7 @@ function InsertClient() {
             firstName,
             lastName,
             nas_client,
-            date,
+            dâte_enregistrement,
           },
         });
         const r = await api.get("/createClientAddress", {
@@ -110,7 +110,7 @@ function InsertClient() {
             type="date"
             id="date"
             name="date"
-            value={date}
+            value={dâte_enregistrement}
             onChange={(e) => setRegistration(e.target.value)}
           />
         </div>

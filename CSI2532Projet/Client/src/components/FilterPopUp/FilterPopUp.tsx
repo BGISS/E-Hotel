@@ -4,22 +4,22 @@ import axios from "axios";
 
 function FilterPopUp() {
   const api = axios.create({
-    baseURL : 'http://localhost:3000'
-  })
+    baseURL: "http://localhost:3000",
+  });
 
-  const [hotelChains, setHotelChains] = useState<{nom_chaîne: string}[]>([])
+  const [hotelChains, setHotelChains] = useState<{ nom_chaîne: string }[]>([]);
 
   const fetchHotels = async () => {
-    console.log('asd')
-     
-     try {
-        const response = await api.get('/getHotelChains')
-        setHotelChains(response.data)        
-      } catch (error) {
-        console.error('Error fetching hotel chains', error)
-      }
-    console.log(hotelChains)
-  }
+    console.log("asd");
+
+    try {
+      const response = await api.get("/getHotelChains");
+      setHotelChains(response.data);
+    } catch (error) {
+      console.error("Error fetching hotel chains", error);
+    }
+    console.log(hotelChains);
+  };
   //for the buttons to change color when clicked
   const [colorAny, setColorAny] = useState<string>("#FFFFFF");
   const [colorAnyText, setColorAnyText] = useState<string>("#000000");
@@ -217,12 +217,16 @@ function FilterPopUp() {
           onChange={handleSelectChange}
           onClick={fetchHotels}
         >
-          {hotelChains && hotelChains.map((item, index) => {
-            console.log(item.nom_chaîne)
-            return(<>
-            <option key={index}>{item.nom_chaîne}</option>
-            </>)
-          })}
+          <option value={""}>Select an option</option>
+          {hotelChains &&
+            hotelChains.map((item, index) => {
+              console.log(item.nom_chaîne);
+              return (
+                <>
+                  <option key={index}>{item.nom_chaîne}</option>
+                </>
+              );
+            })}
         </select>
         <div className="line"></div>
 
@@ -238,7 +242,7 @@ function FilterPopUp() {
         <p className="Category">Hotel category</p>
         <input
           className="categoryInput"
-          type="text"
+          type="number"
           value={category !== null ? category : ""}
           onChange={(e) => setCategory(parseFloat(e.target.value))}
           placeholder="Enter the number of stars"

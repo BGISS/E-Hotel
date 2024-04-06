@@ -14,47 +14,46 @@ const theme = createTheme({
 });
 
 function Login() {
-  const [NAS, setNAS] = useState('') 
-  const [radioVal, setRadioVal] = useState('Employee')
-  const [error, setError] = useState('')
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [text, setText] = useState("Enter your NAS")
-
+  const [NAS, setNAS] = useState("");
+  const [radioVal, setRadioVal] = useState("employé");
+  const [error, setError] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [text, setText] = useState("Enter your NAS");
 
   const api = axios.create({
     baseURL: `http://localhost:3000`,
   });
 
   const handleClick = async () => {
-    if(radioVal === "Admin"){
-      if(NAS === "adminpassword"){
-        setIsLoggedIn(true)
+    if (radioVal === "Admin") {
+      if (NAS === "adminpassword") {
+        setIsLoggedIn(true);
+        setError("");
+      } else {
+        setError("Check whether password has been correctly entered.");
       }
-      else{
-        setError("Check whether password has been correctly entered.")
-      }
-    }
-    else{
+    } else {
       try {
-        const response = await api.get(`/getUser?NAS=${NAS}&radioVal=${radioVal}`)
-        console.log('dc',response.data[0])
-        if(response.data[0] === undefined){
-          console.log("err")
-          setError("Check whether employee, client or admin has been correctly selected. Check whether NAS or password has been properly entered.")
-          setIsLoggedIn(false)
+        const response = await api.get(
+          `/getUser?NAS=${NAS}&radioVal=${radioVal}`
+        );
+        console.log("dc", response.data[0]);
+        if (response.data[0] === undefined) {
+          console.log("err");
+          setError(
+            "Check whether employee, client or admin has been correctly selected. Check whether NAS or password has been properly entered."
+          );
+          setIsLoggedIn(false);
+        } else {
+          setError("");
+          setIsLoggedIn(true);
         }
-        else{
-          setError('') 
-          setIsLoggedIn(true)
-        }
-        
-      }catch (error) {
-        console.error(error)
+      } catch (error) {
+        console.error(error);
       }
     }
-  }
-  
- 
+  };
+
   return (
     <>
       <div className="page">
@@ -65,14 +64,19 @@ function Login() {
           <p className="login-text">Log In</p>
           <div className="radiogroup">
             <ThemeProvider theme={theme}>
-              <RowRadioGroup getValue = {setRadioVal} setLoggedIn={setIsLoggedIn} setError={setError} setText={setText}></RowRadioGroup>
+              <RowRadioGroup
+                getValue={setRadioVal}
+                setLoggedIn={setIsLoggedIn}
+                setError={setError}
+                setText={setText}
+              ></RowRadioGroup>
             </ThemeProvider>
           </div>
           <p className="enter-NAS">{text}</p>
           <div className="button-field-container">
-            <TextField 
-              id="NAS-input" 
-              onChange={(e) => setNAS(e.target.value)} 
+            <TextField
+              id="NAS-input"
+              onChange={(e) => setNAS(e.target.value)}
             />
             {!isLoggedIn && (
               <button className="go-button" onClick={handleClick}>
@@ -81,15 +85,21 @@ function Login() {
             )}
             <p className="error-text">{error}</p>
           </div>
-          {(isLoggedIn && radioVal === "Client") && <Link to="client">
-            <button className = "client-btn">Go</button>
-          </Link>}
-          {(isLoggedIn && radioVal === "Employee") && <Link to="employee">
-            <button className = "emp-btn">Go</button>
-          </Link>}
-          {(isLoggedIn && radioVal === "Admin") && <Link to="admin">
-            <button className = "admin-btn">Go</button>
-          </Link>}
+          {isLoggedIn && radioVal === "Client" && (
+            <Link to="client">
+              <button className="client-btn">Go</button>
+            </Link>
+          )}
+          {isLoggedIn && radioVal === "employé" && (
+            <Link to="employee">
+              <button className="emp-btn">Go</button>
+            </Link>
+          )}
+          {isLoggedIn && radioVal === "Admin" && (
+            <Link to="admin">
+              <button className="admin-btn">Go</button>
+            </Link>
+          )}
         </div>
       </div>
     </>

@@ -69,22 +69,25 @@ body{
 }
 
 .roomCardsContainer{
-    width: 60rem;
+    width: max-content;
+    margin-inline: auto;
     height: fit-content;
-    padding-left: 12rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    gap: 5em;
 }
 
 .popup{
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     align-self: center;
     justify-self: center;
     z-index: 3;
-    margin-top: 40%;
 }
 
 .popupreserve{
@@ -101,11 +104,6 @@ body{
     width: 100vw;
     opacity: 30%;
     background-color: black;
-}
-
-.icon{
-    margin-right: 5rem;
-    margin-bottom: 3rem;
 }
 
 .no-scroll {

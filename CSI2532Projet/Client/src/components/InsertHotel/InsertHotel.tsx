@@ -102,6 +102,8 @@ function InsertHotel() {
             onChange={(e) => setHotelChain(e.target.value)}
             onClick={() => getChain()}
           >
+            <option value={""}>Select an option</option>
+
             {chaineData &&
               chaineData.map(
                 (
@@ -209,6 +211,7 @@ function InsertHotel() {
             className="last"
             type="number"
             value={numRooms}
+            min={1}
             onChange={(e) => setNumRooms(parseFloat(e.target.value))}
           />
         </div>
@@ -218,6 +221,7 @@ function InsertHotel() {
             className="last"
             type="number"
             value={numClients}
+            min={1}
             onChange={(e) => setNumClients(parseFloat(e.target.value))}
           />
         </div>

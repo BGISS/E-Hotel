@@ -18,7 +18,7 @@ function EmployeePage() {
         <Link to="/leasing">
           <EmployeeCard icon={locationIcon} text={"Leasings"}></EmployeeCard>
         </Link>
-        <Link to="/logout">
+        <Link to="/">
           <EmployeeCard icon={cashIcon} text={"Log Out"}></EmployeeCard>
         </Link>
       </div>

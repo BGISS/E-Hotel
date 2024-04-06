@@ -22,11 +22,18 @@ interface RoomData {
   num_chambre: number;
   nom_hôtel: string;
 }
+
+interface ChainData {
+  nom_chaîne: string;
+  nombres_hôtels: number;
+}
+
 function UpdatePage() {
   const [clientData, setClientData] = useState<ClientData[] | null>(null);
   const [employeeData, setEmployeeData] = useState<EmployeeData[] | null>(null);
   const [HotelData, setHotelData] = useState<HotelData[] | null>(null);
   const [RoomData, setRoomData] = useState<RoomData[] | null>(null);
+  const [chainData, setChainsData] = useState<ChainData[] | null>(null);
   const [clientscolor, setclientscolor] = useState<string>("#000000");
   const [employeescolor, setemployeescolor] = useState<string>("#000000");
   const [chainscolor, setchainscolor] = useState<string>("#000000");
@@ -91,10 +98,19 @@ function UpdatePage() {
   };
   const getRooms = async () => {
     try {
-      const response = await api.get("/getRoom");
+      const response = await api.get("/getRooms");
       setRoomData(response.data);
     } catch (error) {
       console.error("Error Fetching Room");
+    }
+  };
+
+  const getChain = async () => {
+    try {
+      const response = await api.get("/getChain");
+      setChainsData(response.data);
+    } catch (error) {
+      console.error("Error Fetching Chain");
     }
   };
 
@@ -131,7 +147,10 @@ function UpdatePage() {
               <p
                 className="chainstext"
                 style={{ color: chainscolor }}
-                onClick={() => handleClick(setchainscolor, setChainsVisible)}
+                onClick={() => {
+                  handleClick(setchainscolor, setChainsVisible);
+                  getChain();
+                }}
               >
                 Hotel chains
               </p>
@@ -165,65 +184,54 @@ function UpdatePage() {
         <div className="delete-cards">
           {clientVisible &&
             clientData &&
-            clientData.map(
-              (
-                item,
-                index: Key | null | undefined
-              ) => (
-                <UpdateCardClient
-                  key={index}
-                  values= {Object.values(item)}
-                  keys = {Object.keys(item)}
-                  tableName="client"
-                ></UpdateCardClient>
-                
-              )
-            )}
+            clientData.map((item, index: Key | null | undefined) => (
+              <UpdateCardClient
+                key={index}
+                values={Object.values(item)}
+                keys={Object.keys(item)}
+                tableName="client"
+              ></UpdateCardClient>
+            ))}
           {employeeVisible &&
             employeeData &&
-            employeeData.map(
-              (
-                item,
-                index: Key | null | undefined
-              ) => (
-                <UpdateCardClient
-                  key={index}
-                  values= {Object.values(item)}
-                  keys = {Object.keys(item)}
-                  tableName="employé"
-                ></UpdateCardClient>
-              )
-            )}
+            employeeData.map((item, index: Key | null | undefined) => (
+              <UpdateCardClient
+                key={index}
+                values={Object.values(item)}
+                keys={Object.keys(item)}
+                tableName="employé"
+              ></UpdateCardClient>
+            ))}
           {hotelsVisible &&
             HotelData &&
-            HotelData.map(
-              (
-                item,
-                index: Key | null | undefined
-              ) => (
-                <UpdateCardClient
-                  key={index}
-                  values= {Object.values(item)}
-                  keys = {Object.keys(item)}
-                  tableName="hôtel"
-                ></UpdateCardClient>
-              )
-            )}
+            HotelData.map((item, index: Key | null | undefined) => (
+              <UpdateCardClient
+                key={index}
+                values={Object.values(item)}
+                keys={Object.keys(item)}
+                tableName="hôtel"
+              ></UpdateCardClient>
+            ))}
           {roomVisible &&
             RoomData &&
-            RoomData.map(
-              (
-                item,
-                index: Key | null | undefined
-              ) => (
-                <UpdateCardClient
-                  key={index}
-                  values= {Object.values(item)}
-                  keys = {Object.keys(item)}
-                  tableName="chambre"
-                ></UpdateCardClient>
-              )
-            )}
+            RoomData.map((item, index: Key | null | undefined) => (
+              <UpdateCardClient
+                key={index}
+                values={Object.values(item)}
+                keys={Object.keys(item)}
+                tableName="chambre"
+              ></UpdateCardClient>
+            ))}
+          {chainsVisible &&
+            chainData &&
+            chainData.map((item, index: Key | null | undefined) => (
+              <UpdateCardClient
+                key={index}
+                values={Object.values(item)}
+                keys={Object.keys(item)}
+                tableName="chaînehôtelière"
+              ></UpdateCardClient>
+            ))}
         </div>
       </div>
     </>

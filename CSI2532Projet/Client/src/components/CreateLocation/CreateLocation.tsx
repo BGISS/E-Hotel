@@ -128,7 +128,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
       toast.error("Please fill in all required fields.");
       return;
     }
-    const radioVal = "employé";
+    var radioVal = "employé";
     var NAS = nas_employee;
     try {
       const u = await api.get("/getUser", {
@@ -160,6 +160,24 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
         toast.error("Please fill in all required fields.");
         return;
       }
+      radioVal = "client";
+      NAS = nas_client;
+      try {
+        const u = await api.get("/getUser", {
+          params: {
+            NAS,
+            radioVal,
+          },
+        });
+        console.log("koko", u.data[0]);
+        if (u.data[0] !== undefined) {
+          toast.error("Please Enter proper Nas ");
+          return;
+        }
+      } catch (error) {
+        console.error("Eror", error);
+      }
+      console.log("liki", dâte_enregistrement);
       try {
         const data = await api.get("/createClient", {
           params: {
@@ -188,7 +206,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
       }
     }
     //Create the leasing
-    console.log(nas_employee);
+    console.log("[pa", payment);
     await api.get("/createLocation", {
       params: {
         date_reserver,
@@ -216,6 +234,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
               className="select-location"
               onChange={handleDropdownChange}
             >
+              <option value={""}>Select an option</option>
               <option value="no">No</option>
               <option value="yes">Yes</option>
             </select>
@@ -312,6 +331,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
               onChange={(e) => setHotelName(e.target.value)}
               onClick={() => getHotels()}
             >
+              <option value={""}>Select an option</option>
               {hotel &&
                 hotel.map(
                   (
@@ -404,6 +424,7 @@ const CreateLocation: React.FC<CreateLocationProps> = ({ onClose }) => {
                 )
               }
             >
+              <option value={""}>Select an option</option>
               {chambreData &&
                 chambreData.map(
                   (

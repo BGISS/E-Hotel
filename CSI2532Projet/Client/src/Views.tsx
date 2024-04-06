@@ -10,6 +10,9 @@ function Views() {
     num_chambre: number;
     capacité: number;
   }
+  interface CityData {
+    count: number;
+  }
 
   const [citycolor, setCityColor] = useState<string>("#000000");
   const [roomColor, setRoomColor] = useState<string>("#000000");
@@ -17,7 +20,7 @@ function Views() {
   const [city, setCity] = useState("");
   const [hotel, setHotel] = useState("");
   const [roomVisible, setRoomVisible] = useState(false);
-  const [numrooms, setnumrooms] = useState<number | null>(null);
+  const [numrooms, setnumrooms] = useState<CityData | null>(null);
   const [ViewData, setViewData] = useState<ViewData[] | null>(null);
 
   function validateInput(input: any) {
@@ -42,9 +45,7 @@ function Views() {
   });
 
   const handleCityClick = async () => {
-    if (
-      !validateInput(city) 
-    ) {
+    if (!validateInput(city)) {
       toast.error("Fill in the field before searching!");
       return;
     }
@@ -54,16 +55,14 @@ function Views() {
           city,
         },
       });
-      setnumrooms(response.data);
+      setnumrooms(response.data[0]);
     } catch (error) {
       console.error("Error finding number of rooms");
     }
   };
 
   const handleHotelClick = async () => {
-    if (
-      !validateInput(hotel) 
-    ) {
+    if (!validateInput(hotel)) {
       toast.error("Fill in the field before searching!");
       return;
     }
@@ -74,7 +73,6 @@ function Views() {
         },
       });
       setViewData(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error finding capacity of rooms in hotel");
     }
@@ -122,7 +120,7 @@ function Views() {
             <div className="searchCity" onClick={handleCityClick}>
               Search
             </div>
-            <p>{numrooms}</p>
+            {numrooms && <p>{numrooms.count}</p>}
           </div>
         )}
         {roomVisible && (

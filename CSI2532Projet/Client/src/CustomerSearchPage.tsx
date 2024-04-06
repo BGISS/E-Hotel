@@ -25,14 +25,17 @@ function CustomerSearchPage() {
 
   const handleClickFilters = () => {
     setIsVisible(true);
+    document.body.classList.toggle("no-scroll");
   };
 
   const handleClickX = () => {
     setIsVisible(false);
+    document.body.classList.toggle("no-scroll");
   };
   const handleClickY = () => {
     setIsVisible(false);
     setReserveIsVisible(false);
+    document.body.classList.toggle("no-scroll");
   };
   const { numberPeople, roomSize, hotelChain, category, render } =
     FilterPopUp();

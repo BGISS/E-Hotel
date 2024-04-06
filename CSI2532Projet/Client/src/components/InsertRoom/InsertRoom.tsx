@@ -100,6 +100,8 @@ function InsertRoom() {
             onChange={(e) => setHotel(e.target.value)}
             onClick={() => getHotels()}
           >
+            <option value={""}>Select an option</option>
+
             {hote &&
               hote.map(
                 (

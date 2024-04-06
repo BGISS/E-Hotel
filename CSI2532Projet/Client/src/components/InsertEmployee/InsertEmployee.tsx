@@ -124,6 +124,7 @@ function InsertEmployee() {
             type="number"
             id="clientNas"
             name="clientNas"
+            min={1}
             value={employeeNas}
             onChange={(e) => setemployeeNas(parseFloat(e.target.value))}
           />
@@ -144,6 +145,8 @@ function InsertEmployee() {
             onChange={(e) => setHotel(e.target.value)}
             onClick={() => getHotels()}
           >
+            <option value={""}>Select an option</option>
+
             {hote &&
               hote.map(
                 (
@@ -188,6 +191,7 @@ function InsertEmployee() {
             type="number"
             id="lastName"
             name="lastName"
+            min={1}
             value={streetNum}
             onChange={(e) => setStreetNum(parseFloat(e.target.value))}
           />

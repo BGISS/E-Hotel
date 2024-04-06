@@ -97,19 +97,19 @@ async function getLocations(){
     return res.rows
 }
 app.get('/createLocation',async(req,res)=>{
-   const{date_reserver,end_date,num_chambre,nom_hôtel,payement,nas_employee,nas_client}= req.query
+   const{date_reserver,end_date,num_chambre,nom_hôtel,payment,nas_employee,nas_client}= req.query
    console.log(nas_employee)
    locationQuery= `INSERT INTO Location (reservation_id,date_reserver,end_date,num_chambre,nom_hôtel,paiement,nas_employee,nas_client) VALUES (NULL,$1, $2, $3, $4, $5, $6, $7)`
     const data = await client.query(locationQuery,
-        [date_reserver,end_date,num_chambre,nom_hôtel,payement,nas_employee,nas_client]);
+        [date_reserver,end_date,num_chambre,nom_hôtel,payment,nas_employee,nas_client]);
     res.send("Success");
        
 });
 
 app.get('/createClient',async(req,res)=>{
-    const{firstName,lastName,nas_client,date}= req.query
-    const query= 'INSERT INTO client(nas_client,nom_client,prénom_client,dâte_enregistrement) VALUES($1,$2,$3,$4)';
-    const data = await client.query(query, [nas_client,firstName,lastName,date]);
+    const{firstName,lastName,nas_client, dâte_enregistrement}= req.query
+    const query= `INSERT INTO client(nas_client,nom_client,prénom_client,dâte_enregistrement) VALUES($1,$2,$3,'${dâte_enregistrement}')`;
+    const data = await client.query(query, [nas_client,firstName,lastName]);
     res.send("Success");
 })
 app.get('/createClientAddress',async(req,res)=>{
@@ -142,8 +142,8 @@ app.get('/insertEmployee',async(req,res)=>{
 app.get('/insertHotel',async(req,res)=>{
     const{hotel,hotelChain,email,numStars,numTel,city,postal,streetNum,country,numRooms,numClients,streetName}= req.query
     
-    const hotelquery= 'INSERT INTO hôtel(nombres_chambres,nom_hôtel,nom_chaîne,nombres_clients,nombres_etoiles) VALUES($1,$2,$3,$4,$5)';
-    const hoteldata = await client.query(hotelquery, [numRooms,hotel,hotelChain,numClients,numStars]);
+    const hotelquery= 'INSERT INTO hôtel(nom_hôtel,nombres_chambres,nom_chaîne,nombres_clients,nombres_etoiles) VALUES($1,$2,$3,$4,$5)';
+    const hoteldata = await client.query(hotelquery, [hotel,numRooms,hotelChain,numClients,numStars]);
     
     const telquery= 'INSERT INTO numero_telephone(num_telephone,nom_hôtel,nom_chaîne) VALUES($1,$2,NULL)';
     const teldata = await client.query(telquery, [numTel,hotel]);
@@ -166,8 +166,8 @@ app.get('/insertHotelChain',async(req,res)=>{
         postal,
         streetNum,
         numTel,streetName}= req.query
-    const chainequery= 'INSERT INTO chaînehôtelière(nombres_hôtels,nom_chaîne) VALUES($1,$2)';
-    const chainedata = await client.query(chainequery, [numHotels,hotelChain]);
+    const chainequery= 'INSERT INTO chaînehôtelière(nom_chaîne,nombres_hôtels) VALUES($1,$2)';
+    const chainedata = await client.query(chainequery, [hotelChain,numHotels]);
 
     const addressquery= 'INSERT INTO adresse(nom_chaîne,num_rue,nom_rue,ville,code_postal,pays,nas_client,nas_employee,nom_hôtel) VALUES($1,$2,$3,$4,$5,$6,NULL,NULL,NULL)';
     const addressedata = await client.query(addressquery, [hotelChain,streetNum,streetName,city,postal,country]);
@@ -241,8 +241,9 @@ app.get('/delete',async(req,res)=>{
 
 app.get('/getroomsbycity',async(req,res)=>{
     const{city}= req.query
-    query=`SELECT COUNT(*) FROM chambres_par_zone WHERE ville = '${city}'`;
+    query=`SELECT COUNT(*) FROM chambres_par_zones WHERE ville = '${city}'`;
     const data= await client.query(query)
+    console.log(data.rows)
     res.send(data.rows)
 });
 
@@ -333,13 +334,6 @@ app.get('/getHotelChains', async (req,res) => {
     console.log('fess',response.rows)
     res.send(response.rows)
 });
-
-async function addReservation(){}
-async function getQuery(){}
-async function addLocation({start_date,end_date,employee_id,nas_client,num_chambre,nom_hotel}){
-    const baseQuery='Insert into Location(date_reserver,end_date,num_chambre,reservation_id,nas_client,employee_id,nom_hôtel)'
-    const res= await client.query(baseQuery+'')
-}
 connectPostgres();
  
 app.listen(3000,()=>{console.log("Server started on port 3000")})  
